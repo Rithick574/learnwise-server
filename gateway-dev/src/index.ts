@@ -38,18 +38,6 @@ const routes = [
     target: services.auth,
     changeOrigin: true,
     pathRewrite: { "^/api/auth": "" } as { [regexp: string]: string },
-  },
-  {
-    context: "/api/user",
-    target: services.user,
-    changeOrigin: true,
-    pathRewrite: { "^/api/user": "" } as { [regexp: string]: string },
-  },
-  {
-    context: "/api/notification",
-    target: services.notification,
-    changeOrigin: true,
-    pathRewrite: { "^/api/notification": "" } as { [regexp: string]: string },
   }
 ];
 
