@@ -2,7 +2,7 @@ import express, { Application } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import morgan from "morgan";
-import { createProxyMiddleware } from "http-proxy-middleware";
+import proxy from 'express-http-proxy'
 import { config } from "dotenv";
 config();
 
@@ -37,22 +37,21 @@ const routes = [
     context: "/api/auth",
     target: services.auth,
     changeOrigin: true,
-    pathRewrite: { "^/api/auth": "" } as { [regexp: string]: string },
   }
 ];
 
-// Proxy setup for user route
+// Proxy setup for routes
 routes.forEach((route) => {
-  app.use(
-    route.context,
-    createProxyMiddleware({
-      target: route.target,
-      pathRewrite: route.pathRewrite,
-      changeOrigin: true,
-      secure: false,
-    })
-  );
+  if (typeof route.target === 'string') {
+    app.use(
+      route.context,
+      proxy(route.target)
+    );
+  } else {
+    console.warn(`Proxy target for ${route.context} is undefined.`);
+  }
 });
+
 
 app.listen(PORT, () => {
   console.log(`
