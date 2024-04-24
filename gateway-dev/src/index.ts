@@ -35,7 +35,7 @@ const services = {
 const routes = [
   {
     context: "/api/auth",
-    target: services.user,
+    target: services.auth,
     changeOrigin: true,
     pathRewrite: { "^/api/auth": "" } as { [regexp: string]: string },
   },
