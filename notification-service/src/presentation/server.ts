@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { notificationRoutes } from "@/infrastructure/routes";
 import { dependencies } from "@/__boot/dependencies";
-
+dotenv.config();
 
 const app: Application = express();
 const PORT: number = Number(process.env.PORT);
