@@ -79,7 +79,7 @@ export const sendOTPMail = async (email:string, otp:string) => {
       
       <body>
           <div class="container">
-              <h2>ex.iphones.</h2>
+              <h2>Learnwise</h2>
               <div class="header">
                   <h1>Email Verification</h1>
               </div>
