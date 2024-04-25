@@ -16,6 +16,11 @@ export default async(data:UserEntity)=>{
             },
         ]
 
+        console.log("@@@@@@@",NOTIFICATION_SERVICE_TOPIC);
+        console.log(USER_CREATED_MESSAGE,"-----------------");
+        
+        
+
         await producer.sendBatch({ topicMessages: messages });
         
     }catch (error:any) {
