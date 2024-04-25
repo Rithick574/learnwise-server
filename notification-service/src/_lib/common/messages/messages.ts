@@ -1,0 +1,1 @@
+export declare const SEND_VERIFICATION_MAIL_MESSAGE = "sendVerificationMail";

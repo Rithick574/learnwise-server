@@ -1,0 +1,1 @@
+export declare const AUTH_SERVICE_TOPIC = "auth-service-topic";
