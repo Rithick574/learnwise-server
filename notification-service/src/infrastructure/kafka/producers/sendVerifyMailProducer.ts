@@ -1,5 +1,4 @@
 import {producer} from "../index"
-import {AUTH_SERVICE_TOPIC,SEND_VERIFICATION_MAIL_MESSAGE} from "@/_lib/common/index"
 
 export default async (
     data: {
@@ -12,9 +11,9 @@ export default async (
         await producer.connect();
 
         const message = {
-            topic: AUTH_SERVICE_TOPIC,
+            topic: "auth-service-topic",
             messages: [{
-                key: SEND_VERIFICATION_MAIL_MESSAGE,
+                key: "sendVerificationMail",
                 value: JSON.stringify(data)
             }]
         }
