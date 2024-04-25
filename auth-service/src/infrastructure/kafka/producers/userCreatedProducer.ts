@@ -1,6 +1,5 @@
 import {producer} from ".."
 import { UserEntity } from "@/domain/entities"
-import {NOTIFICATION_SERVICE_TOPIC,USER_CREATED_MESSAGE} from "@/_lib/common"
 
 
 export default async(data:UserEntity)=>{
@@ -8,18 +7,13 @@ export default async(data:UserEntity)=>{
         await producer.connect();
         const messages = [
             {
-                topic: NOTIFICATION_SERVICE_TOPIC,
+                topic: "notification-service-topic",
                 messages: [{
-                    key: USER_CREATED_MESSAGE,
+                    key: "userCreated",
                     value: JSON.stringify(data)
                 }]
             },
         ]
-
-        console.log("@@@@@@@",NOTIFICATION_SERVICE_TOPIC);
-        console.log(USER_CREATED_MESSAGE,"-----------------");
-        
-        
 
         await producer.sendBatch({ topicMessages: messages });
         
