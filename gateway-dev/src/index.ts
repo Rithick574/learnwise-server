@@ -2,7 +2,7 @@ import express, { Application } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import morgan from "morgan";
-import proxy from 'express-http-proxy'
+import proxy from "express-http-proxy";
 import { config } from "dotenv";
 config();
 
@@ -29,7 +29,7 @@ app.use(cors(corsOptions));
 const services = {
   auth: process.env.AUTH_SERVICE,
   user: process.env.USER_SERVICE,
-  notification: process.env.NOTIFICATION_SERVICE
+  notification: process.env.NOTIFICATION_SERVICE,
 };
 
 const routes = [
@@ -37,21 +37,27 @@ const routes = [
     context: "/api/auth",
     target: services.auth,
     changeOrigin: true,
-  }
+  },
+  {
+    context: "/api/notification",
+    target: services.notification,
+    changeOrigin: true,
+  },
+  {
+    context: "/api/user",
+    targer: services.user,
+    changeOrigin: true,
+  },
 ];
 
 // Proxy setup for routes
 routes.forEach((route) => {
-  if (typeof route.target === 'string') {
-    app.use(
-      route.context,
-      proxy(route.target)
-    );
+  if (typeof route.target === "string") {
+    app.use(route.context, proxy(route.target));
   } else {
     console.warn(`Proxy target for ${route.context} is undefined.`);
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`
