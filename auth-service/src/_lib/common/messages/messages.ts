@@ -1,0 +1,1 @@
+export declare const USER_CREATED_MESSAGE = "userCreated";

@@ -1,4 +1,4 @@
-import { User } from "@/infrastructure/database/models/index";
+import { User } from "@/infrastructure/database/mongodb/models/index";
 import { UserEntity } from "@/domain/entities";
 
 

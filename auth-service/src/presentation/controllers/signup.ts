@@ -3,6 +3,7 @@ import { IDependencies } from "@/application/interfaces/IDependencies";
 import { signupValidation } from "@/_lib/validation";
 import { hashPassword } from "@/_lib/bcrypt";
 import { generateAccessToken, generateRefreshToken } from "@/_lib/jwt";
+import { userCreatedProducer } from "@/infrastructure/kafka/producers";
 
 export const signupController = (dependencies: IDependencies) => {
   const {
@@ -17,22 +18,24 @@ export const signupController = (dependencies: IDependencies) => {
       }
       value.password = await hashPassword(value.password);
 
-      const result = await createUserUseCase(dependencies).execute(value);
+      const userData = await createUserUseCase(dependencies).execute(value);
 
-      if (!result) {
+      if (!userData) {
         throw new Error("User creation failed!");
       }
 
+      await userCreatedProducer(userData)
+
       const accessToken = generateAccessToken({
-        _id: String(result?._id),
-        email: result?.email!,
-        role: result?.role!,
+        _id: String(userData?._id),
+        email: userData?.email!,
+        role: userData?.role!,
       });
 
       const refreshToken = generateRefreshToken({
-        _id: String(result?._id),
-        email: result?.email!,
-        role: result?.role!,
+        _id: String(userData?._id),
+        email: userData?.email!,
+        role: userData?.role!,
       });
 
       res.cookie("access_token", accessToken, {
@@ -45,7 +48,7 @@ export const signupController = (dependencies: IDependencies) => {
 
       res.status(200).json({
         success: true,
-        data: result,
+        data: userData,
         message: "User created!",
       });
       
