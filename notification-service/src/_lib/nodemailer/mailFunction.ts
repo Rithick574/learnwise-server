@@ -39,7 +39,7 @@ export const sendOTPMail = async (email:string, otp:string) => {
               }
       
               .header {
-                  background-color: #4caf50;
+                  background-color: #152e5c;
                   color: #ffffff;
                   padding: 10px 20px;
                   border-radius: 5px;
@@ -65,7 +65,7 @@ export const sendOTPMail = async (email:string, otp:string) => {
               .otp-code {
                   font-size: 24px;
                   font-weight: bold;
-                  color: #4caf50;
+                  color: #152e5c;
               }
       
               .footer {
@@ -91,8 +91,8 @@ export const sendOTPMail = async (email:string, otp:string) => {
               </div>
               <div class="footer">
                   <p>Best regards,</p>
-                  <p>ex.iphones</p>
-                  <p>&copy; 2023 ex.iphones. All rights reserved.</p>
+                  <p>Learnwise</p>
+                  <p>&copy; 2024 Learnwise. All rights reserved.</p>
               </div>
           </div>
       </body>
