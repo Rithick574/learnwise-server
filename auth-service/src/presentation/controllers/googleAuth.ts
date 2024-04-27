@@ -78,7 +78,7 @@ export const googleAuthController = (dependencies: IDependencies) => {
             });
 
             //produce-user-creation-message
-            await userCreatedProducer(result);
+            // await userCreatedProducer(result);
             
             res.cookie("access_token", accessToken, {
                 httpOnly: true
