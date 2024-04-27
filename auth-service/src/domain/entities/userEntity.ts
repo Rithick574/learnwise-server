@@ -34,7 +34,6 @@ export interface UserEntity {
     _id?: ObjectId;
     firstName: string;
     lastName: string;
-    username: string;
     email: string;
     password?: string;
     role: Role;
@@ -44,6 +43,5 @@ export interface UserEntity {
     isVerified: boolean;
     createdAt?: Date;
     updatedAt?: Date;
-    otp?: string;
     profession?: string;
 }

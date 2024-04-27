@@ -7,27 +7,93 @@ import { userCreatedProducer } from "@/infrastructure/kafka/producers";
 
 export const signupController = (dependencies: IDependencies) => {
   const {
-    useCases: { createUserUseCase },
+    useCases: { createUserUseCase, findUserByEmailUseCase, verifyOtpUseCase },
   } = dependencies;
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      console.log(req.body);
+    const userCredentials = req.body;
+    console.log(
+      "🚀 ~ file: signup.ts:15 ~ return ~ userCredentials:",
+      userCredentials
+    );
 
-      const { error, value } = signupValidation.validate(req.body);
-      if (error) {
-        throw new Error(error.message);
+    //To check whether the user email is taken or not
+    if (!userCredentials.otp) {
+      try {
+        const userExist: any = await findUserByEmailUseCase(dependencies).execute(
+          userCredentials.email
+        );
+        console.log("🚀 ~ file: signup.ts:28 ~ return ~ userExist:", userExist)
+        if (userExist) {
+          return res.status(409).json({
+            success: true,
+            message: "Email is already resgitered, try another email",
+          });
+        }
+      } catch (error: any) {
+        console.log(error, "Something went Wrong");
+        next(error);
       }
-      value.password = await hashPassword(value.password);
+    }
 
-      const userData = await createUserUseCase(dependencies).execute(value);
-
-      if (!userData) {
-        throw new Error("User creation failed!");
+    //if user not present sent otp to user using nodemailer
+    if (!userCredentials.otp) {
+      try {
+        await userCreatedProducer(req.body.email);
+        return res.status(200).json({
+          success: true,
+          message: "otp sent successfully",
+        });
+      } catch (error: any) {
+        console.log(error, "Something Went Wrong in OTP section");
+        return res.json({
+          success: false,
+          message: "Something went wrong in otp",
+        });
       }
+    }
 
-      if (userData.otp) {
-        console.log("here at otp");
+    // verify otp if otp is present
+    if (userCredentials.otp) {
+      try {
+        const isOtpVerified = await verifyOtpUseCase(dependencies).execute(
+          userCredentials.email,
+          userCredentials.otp
+        );
+        if (!isOtpVerified) {
+          const { email, ...restValues } = userCredentials;
+          return res.status(401).json({
+            user: restValues,
+            success: false,
+            message: "Otp is Invalid try another",
+          });
+        }
+      } catch (error: any) {
+        console.log(error, "Something went wrong in verifyOtp");
+        return res.json({
+          success: false,
+          message: "Otp invalid",
+        });
+      }
+    }
+
+    //create a new user if otp is present
+    if (userCredentials.otp) {
+      try {
+        const { error, value } = signupValidation.validate(req.body);
+        if (error) {
+          throw new Error(error.message);
+        }
+        value.password = await hashPassword(value.password);
+
+        const userData = await createUserUseCase(dependencies).execute(value);
+
+        if (!userData) {
+          return res.json({
+            success: false,
+            message: "Something Went wrong try again in create user",
+          });
+        }
 
         const accessToken = generateAccessToken({
           _id: String(userData?._id),
@@ -54,16 +120,9 @@ export const signupController = (dependencies: IDependencies) => {
           data: userData,
           message: "User created!",
         });
-      } else {
-        console.log("in else");
-        await userCreatedProducer(userData);
-        res.status(200).json({
-          success:true,
-          message:"otp sent successfully"
-        })
+      } catch (error: any) {
+        console.log(error, "<<Something went wrong in user signup>>");
       }
-    } catch (error: any) {
-      next(error);
     }
   };
 };

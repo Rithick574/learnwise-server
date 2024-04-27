@@ -24,5 +24,5 @@ passwordconfirm:Joi
 phoneNumber:Joi
     .required(),
 otp:Joi
-    .number()
+    .string()
 })
