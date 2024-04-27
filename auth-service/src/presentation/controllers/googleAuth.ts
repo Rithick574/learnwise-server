@@ -58,7 +58,6 @@ export const googleAuthController = (dependencies: IDependencies) => {
                 isVerified: true,
                 firstName: body.given_name,
                 lastName: body.family_name,
-                username: `${body.given_name}_${body.family_name}${new Date().toTimeString().substring(0,2)}`,
                 password: `${generateRandomString()}`
             } as UserEntity);
 
