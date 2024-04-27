@@ -1,19 +1,16 @@
 import { sendVerificationMail } from "@/infrastructure/services";
 
 export default async (
-    data: {
-        email: string;
-        isVerified: boolean;
-    }
+    data:string
 ) => {
 
     try {
 
-        if(data?.isVerified){
-            return;
-        }
+        // if(data?.isVerified){
+        //     return;
+        // }
 
-        await sendVerificationMail(data.email);
+        await sendVerificationMail(data);
 
         console.log("==========");
         console.log("user-created-consumed mail send");
