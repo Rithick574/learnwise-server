@@ -12,6 +12,8 @@ export const signupController = (dependencies: IDependencies) => {
 
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log(req.body);
+      
       const { error, value } = signupValidation.validate(req.body);
       if (error) {
         throw new Error(error.message);
