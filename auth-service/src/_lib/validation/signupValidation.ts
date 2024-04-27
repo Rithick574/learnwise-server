@@ -1,11 +1,6 @@
 import Joi from "joi"
 
 export const signupValidation = Joi.object({
-username: Joi
-    .string()
-    .min(4)
-    .required(),
-
 firstName: Joi
     .string()
     .required(),
