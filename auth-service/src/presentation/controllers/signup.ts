@@ -13,7 +13,7 @@ export const signupController = (dependencies: IDependencies) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       console.log(req.body);
-      
+
       const { error, value } = signupValidation.validate(req.body);
       if (error) {
         throw new Error(error.message);
@@ -26,34 +26,42 @@ export const signupController = (dependencies: IDependencies) => {
         throw new Error("User creation failed!");
       }
 
-      await userCreatedProducer(userData)
+      if (userData.otp) {
+        console.log("here at otp");
 
-      const accessToken = generateAccessToken({
-        _id: String(userData?._id),
-        email: userData?.email!,
-        role: userData?.role!,
-      });
+        const accessToken = generateAccessToken({
+          _id: String(userData?._id),
+          email: userData?.email!,
+          role: userData?.role!,
+        });
 
-      const refreshToken = generateRefreshToken({
-        _id: String(userData?._id),
-        email: userData?.email!,
-        role: userData?.role!,
-      });
+        const refreshToken = generateRefreshToken({
+          _id: String(userData?._id),
+          email: userData?.email!,
+          role: userData?.role!,
+        });
 
-      res.cookie("access_token", accessToken, {
-        httpOnly: true,
-      });
+        res.cookie("access_token", accessToken, {
+          httpOnly: true,
+        });
 
-      res.cookie("refresh_token", refreshToken, {
-        httpOnly: true,
-      });
+        res.cookie("refresh_token", refreshToken, {
+          httpOnly: true,
+        });
 
-      res.status(200).json({
-        success: true,
-        data: userData,
-        message: "User created!",
-      });
-      
+        res.status(200).json({
+          success: true,
+          data: userData,
+          message: "User created!",
+        });
+      } else {
+        console.log("in else");
+        await userCreatedProducer(userData);
+        res.status(200).json({
+          success:true,
+          message:"otp sent successfully"
+        })
+      }
     } catch (error: any) {
       next(error);
     }
