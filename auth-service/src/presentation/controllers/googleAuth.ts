@@ -3,7 +3,9 @@ import { generateRefreshToken,generateAccessToken } from "@/_lib/jwt";
 import { generateRandomString } from "@/_lib/util/generateRandomString";
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { UserEntity } from "@/domain/entities";
-import { userCreatedProducer } from "@/infrastructure/kafka/producers";
+// import { userCreatedProducer } from "@/infrastructure/kafka/producers";
+import {OAuth2Client} from "google-auth-library"
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const googleAuthController = (dependencies: IDependencies) => {
 
@@ -13,17 +15,26 @@ export const googleAuthController = (dependencies: IDependencies) => {
 
     return async (req: Request, res: Response, next: NextFunction) => {
 
-        try {
+        try {          
+            const { credential} = req.body;
 
-            const body: {
-                given_name: string,
-                family_name: string,
-                email: string
-            } = req.body;
-            console.log("@@@@🚀 ~ file: googleAuth.ts:23 ~ return ~ req.body:", req.body)
-            
+            const ticket = await client.verifyIdToken({
+                idToken: credential,
+                audience: process.env.GOOGLE_CLIENT_ID,
+              });
 
-            const exist = await findUserByEmailUseCase(dependencies).execute(body.email);
+            const payload = ticket.getPayload();
+
+            if (!payload || !payload.email) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Google token is invalid or does not contain an email address."
+                });
+            }
+
+            const { email, given_name, family_name } = payload;
+
+            const exist = await findUserByEmailUseCase(dependencies).execute(email);
 
             if(exist){
                 
@@ -56,10 +67,10 @@ export const googleAuthController = (dependencies: IDependencies) => {
             }
 
             const result = await createUserUseCase(dependencies).execute({
-                email: body.email,
+                email: email,
                 isVerified: true,
-                firstName: body.given_name,
-                lastName: body.family_name,
+                firstName: given_name,
+                lastName: "p",
                 password: `${generateRandomString()}`
             } as UserEntity);
 
@@ -96,7 +107,7 @@ export const googleAuthController = (dependencies: IDependencies) => {
                 message: "User Google signup!"
             });
 
-        } catch (error) {
+        } catch (error:any) {
             next(error);
         }
     }
