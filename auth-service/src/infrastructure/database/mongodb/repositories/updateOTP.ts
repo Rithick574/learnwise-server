@@ -9,11 +9,18 @@ export const updateOTP = async (
 ): Promise<IOtp | null> => {
     try {
 
-        const updatedUser = await Otp.create(data)
+        const result = await Otp.updateOne(
+            { email: data.email }, 
+            { $set: { otp: data.otp } },
+            { upsert: true, new: true }
+        );
 
-        if (!updatedUser) {
-            throw new Error("User otp updation failed!");
+        if (!result) {
+            throw new Error("OTP update/creation failed!");
         }
+
+
+        const updatedUser = await Otp.findOne({ email: data.email });
 
         return updatedUser;
 

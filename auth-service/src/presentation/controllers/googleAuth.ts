@@ -20,6 +20,8 @@ export const googleAuthController = (dependencies: IDependencies) => {
                 family_name: string,
                 email: string
             } = req.body;
+            console.log("@@@@🚀 ~ file: googleAuth.ts:23 ~ return ~ req.body:", req.body)
+            
 
             const exist = await findUserByEmailUseCase(dependencies).execute(body.email);
 
