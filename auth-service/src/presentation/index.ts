@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser"
 dotenv.config();
 import {routes} from "@/infrastructure/routes"
 import { dependencies } from "@/_boot/dependencies";
+import {errorHandler} from "@/_lib/common/error"
 
 
 const app: Application = express();
@@ -13,18 +14,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(err);
-    const errorResponse = {
-      errors: [{ message: err?.message || "Something went wrong" }],
-    };
-    return res.status(500).json(errorResponse);
-  });
+
 
   app.use("/",routes(dependencies))
+
+  app.use("*",(req: Request, res: Response) => {
+    res.status(404).json({ success: false, status: 404, message: "Api Not found" });
+  });  
+
+  app.use(errorHandler);
 
   app.listen(PORT, () => {
     console.log(`connected to auth service defaultly at ${PORT}`);
   });
+
+
   
   export default app;

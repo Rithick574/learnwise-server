@@ -4,6 +4,7 @@ import { signupValidation } from "@/_lib/validation";
 import { hashPassword } from "@/_lib/bcrypt";
 import { generateAccessToken, generateRefreshToken } from "@/_lib/jwt";
 import { userCreatedProducer } from "@/infrastructure/kafka/producers";
+import {ErrorResponse} from "@/_lib/common/error"
 
 export const signupController = (dependencies: IDependencies) => {
   const {
@@ -25,10 +26,7 @@ export const signupController = (dependencies: IDependencies) => {
         );
         console.log("🚀 ~ file: signup.ts:28 ~ return ~ userExist:", userExist)
         if (userExist) {
-          return res.status(409).json({
-            success: true,
-            message: "Email is already resgitered, try another email",
-          });
+          return next(ErrorResponse.conflict("Email is already resgitered, try another email"))
         }
       } catch (error: any) {
         console.log(error, "Something went Wrong");
