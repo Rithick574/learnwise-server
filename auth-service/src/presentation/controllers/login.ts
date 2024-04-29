@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { generateAccessToken, generateRefreshToken } from "@/_lib/jwt";
 import { loginValidation } from "@/_lib/validation";
+import { comparePassword } from "@/_lib/bcrypt";
+import {ErrorResponse} from "@/_lib/common/error"
 
 export const loginController = (dependencies: IDependencies) => {
   const {
@@ -17,6 +19,16 @@ export const loginController = (dependencies: IDependencies) => {
         value.email,
         value.password
       );
+      if (!result) {
+        return next(ErrorResponse.unauthorized("We couldn't find an account with that email address. Please check your email and try again."));
+    }
+
+    const match = await comparePassword(value.password, result.password!);
+
+    if(!match){
+        return next(ErrorResponse.unauthorized("Incorrect password. Please try again."));
+    }
+
       const accessToken = generateAccessToken({
         _id: String(result?._id),
         email: result?.email!,
@@ -40,7 +52,7 @@ export const loginController = (dependencies: IDependencies) => {
     res.status(200).json({
         success: true,
         data: result,
-        message: "User logged-in"
+        message: "Login successful!"
     });
     } catch (error: any) {
         next(error);
