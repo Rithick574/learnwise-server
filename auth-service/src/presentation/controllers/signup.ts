@@ -63,7 +63,7 @@ export const signupController = (dependencies: IDependencies) => {
           return res.status(401).json({
             user: restValues,
             success: false,
-            message: "Otp is Invalid try another",
+            message: "OTP is Invalid try another",
           });
         }
       } catch (error: any) {

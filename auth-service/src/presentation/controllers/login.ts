@@ -20,7 +20,7 @@ export const loginController = (dependencies: IDependencies) => {
         value.password
       );
       if (!result) {
-        return next(ErrorResponse.unauthorized("We couldn't find an account with that email address. Please check your email and try again."));
+        return next(ErrorResponse.unauthorized("We couldn't find an account with that email address"));
     }
 
     const match = await comparePassword(value.password, result.password!);
