@@ -6,10 +6,6 @@ export default async (
 
     try {
 
-        // if(data?.isVerified){
-        //     return;
-        // }
-
         await sendVerificationMail(data);
 
         console.log("==========");
