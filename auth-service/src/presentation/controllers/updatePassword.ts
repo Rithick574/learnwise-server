@@ -9,8 +9,8 @@ export const updatePasswordController = (dependencies: IDependencies) => {
 
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { param, password } = req.body;  
-
+            const { param, password } = req.body.data;  
+           
             if (!param || !password) {
                 return next(ErrorResponse.badRequest("Token and password are required fields"));
             }
