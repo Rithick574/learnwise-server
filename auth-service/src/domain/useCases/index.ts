@@ -3,3 +3,4 @@ export * from "./ILoginUserUseCase";
 export * from "./IFindUserByIdUseCase"
 export * from "./IFindUserByEmailUseCase"
 export * from "./IVerifyOtpUseCase"
+export * from "./IUpdateUserPasswordUseCase"
