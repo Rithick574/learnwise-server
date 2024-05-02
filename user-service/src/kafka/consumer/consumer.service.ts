@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { Kafka, Consumer, ConsumerSubscribeTopics, ConsumerRunConfig, EachMessagePayload } from 'kafkajs';
-import { UsersService } from 'src/users/users.service';
+import { Kafka, Consumer, EachMessagePayload } from 'kafkajs';
+import { UsersService } from 'src/users/users.service';  
 
 @Injectable()
 export class ConsumerService implements OnModuleInit {
@@ -8,37 +8,36 @@ export class ConsumerService implements OnModuleInit {
     brokers: ['localhost:29092'],
   });
 
-  private readonly consumers: Consumer[] = [];
+  private readonly consumer: Consumer;
 
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {
+    this.consumer = this.kafka.consumer({ groupId: 'user-service-group' });
+  }
 
   async onModuleInit() {
-    await this.consume({
-      groupId: 'user-group',
-      topics: ['user-topic'],
-      config: {
-        eachMessage: async (payload: EachMessagePayload) => {
-          const message = payload.message.value?.toString();
-          if (message) {
-            const userData = JSON.parse(message);
-            this.usersService.addUser(userData);
+    await this.consumer.connect();
+    await this.consumer.subscribe({ topic: 'USER_SERVICE_TOPIC' });
+
+    await this.consumer.run({
+      eachMessage: async ({ topic, partition, message }) => {
+        const key = message.key?.toString();
+        const value = message.value?.toString();
+
+        if (value) {
+          try {
+            const data = JSON.parse(value);
+            if (key === 'USER_CREATED_MESSAGE') {
+              await this.usersService.addUser(data);  
+            }
+          } catch (error) {
+            console.error('Error processing message', error);
           }
         }
       }
     });
   }
 
-  async consume({ groupId, topics, config }: { groupId: string; topics: string[]; config: ConsumerRunConfig }) {
-    const consumer: Consumer = this.kafka.consumer({ groupId });
-    await consumer.connect().catch((e) => console.log(e));
-    await consumer.subscribe({ topics });
-    await consumer.run(config);
-    this.consumers.push(consumer);
-  }
-
   async onApplicationShutdown() {
-    for (const consumer of this.consumers) {
-      await consumer.disconnect();
-    }
+    await this.consumer.disconnect();
   }
 }
