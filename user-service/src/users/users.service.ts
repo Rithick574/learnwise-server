@@ -9,6 +9,9 @@ export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
   // constructor(private readonly _kafka: ProducerService) {}
   async addUser(userData: any): Promise<User> {
+    if (typeof userData !== 'object') {
+      throw new TypeError('userData must be an object');
+    }
     const newUser = new this.userModel(userData);
     return newUser.save();
   }
