@@ -4,7 +4,7 @@ import { signupValidation } from "@/_lib/validation";
 import { hashPassword } from "@/_lib/bcrypt";
 import { generateAccessToken, generateRefreshToken } from "@/_lib/jwt";
 import { userCreatedProducer } from "@/infrastructure/kafka/producers";
-import {ErrorResponse} from "@/_lib/common/error"
+import { ErrorResponse } from "@/_lib/common/error";
 
 export const signupController = (dependencies: IDependencies) => {
   const {
@@ -21,12 +21,16 @@ export const signupController = (dependencies: IDependencies) => {
     //To check whether the user email is taken or not
     if (!userCredentials.otp) {
       try {
-        const userExist: any = await findUserByEmailUseCase(dependencies).execute(
-          userCredentials.email
-        );
-        console.log("🚀 ~ file: signup.ts:28 ~ return ~ userExist:", userExist)
+        const userExist: any = await findUserByEmailUseCase(
+          dependencies
+        ).execute(userCredentials.email);
+        console.log("🚀 ~ file: signup.ts:28 ~ return ~ userExist:", userExist);
         if (userExist) {
-          return next(ErrorResponse.conflict("Email is already resgitered, try another email"))
+          return next(
+            ErrorResponse.conflict(
+              "Email is already resgitered, try another email"
+            )
+          );
         }
       } catch (error: any) {
         console.log(error, "Something went Wrong");
@@ -92,6 +96,8 @@ export const signupController = (dependencies: IDependencies) => {
             message: "Something Went wrong try again in create user",
           });
         }
+        //produce-user-creation-message
+        await userCreatedProducer(userData);
 
         const accessToken = generateAccessToken({
           _id: String(userData?._id),
