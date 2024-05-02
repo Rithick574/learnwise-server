@@ -12,7 +12,13 @@ export default async(data:UserEntity)=>{
                     key: "userCreated",
                     value: JSON.stringify(data)
                 }]
-            },
+            },{
+                topic: "USER_SERVICE_TOPIC",
+                messages: [{
+                    key: 'USER_CREATED_MESSAGE',
+                    value: JSON.stringify(data)
+                }]
+            }
         ]
 
         await producer.sendBatch({ topicMessages: messages });
