@@ -20,15 +20,12 @@ export class ConsumerService implements OnModuleInit {
 
     await this.consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
-        const key = message.key?.toString();
-        const value = message.value?.toString();
-
-        if (value) {
+        const messageValue = message.value?.toString();
+        if (messageValue) {
           try {
-            const data = JSON.parse(value);
-            if (key === 'USER_CREATED_MESSAGE') {
-              await this.usersService.addUser(data);  
-            }
+            const userData = JSON.parse(messageValue);
+            console.log('Parsed userData:', userData); 
+            await this.usersService.addUser(userData);
           } catch (error) {
             console.error('Error processing message', error);
           }

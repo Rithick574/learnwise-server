@@ -8,7 +8,7 @@ export class UsersController {
 
     @Get()
     findAllInstructors(){
-        return this.userService.getHello()
+        return 'hello world'
     }
 
 }
