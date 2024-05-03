@@ -45,7 +45,7 @@ const routes = [
   },
   {
     context: "/api/user",
-    targer: services.user,
+    target: services.user,
     changeOrigin: true,
   },
 ];
