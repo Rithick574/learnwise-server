@@ -41,7 +41,7 @@ export const signupController = (dependencies: IDependencies) => {
     //if user not present sent otp to user using nodemailer
     if (!userCredentials.otp) {
       try {
-        await userCreatedProducer(req.body.email);
+        await userCreatedProducer(req.body.email,'notification-service-topic');
         return res.status(200).json({
           success: true,
           message: "otp sent successfully",
@@ -97,7 +97,7 @@ export const signupController = (dependencies: IDependencies) => {
           });
         }
         //produce-user-creation-message
-        await userCreatedProducer(userData);
+        await userCreatedProducer(userData,'USER_SERVICE_TOPIC');
 
         const accessToken = generateAccessToken({
           _id: String(userData?._id),

@@ -2,20 +2,17 @@ import {producer} from ".."
 import { UserEntity } from "@/domain/entities"
 
 
-export default async(data:UserEntity)=>{
+export default async(data:UserEntity,topic?: string)=>{
     try {
+        const targetTopic = topic || 'default-topic';
+        console.log("🚀 ~ file: userCreatedProducer.ts:8 ~ async ~ targetTopic:", targetTopic)
+        
         await producer.connect();
         const messages = [
             {
-                topic: "notification-service-topic",
+                topic: targetTopic,
                 messages: [{
                     key: "userCreated",
-                    value: JSON.stringify(data)
-                }]
-            },{
-                topic: "USER_SERVICE_TOPIC",
-                messages: [{
-                    key: 'USER_CREATED_MESSAGE',
                     value: JSON.stringify(data)
                 }]
             }
