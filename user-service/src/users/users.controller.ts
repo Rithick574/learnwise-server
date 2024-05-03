@@ -47,9 +47,9 @@ export class UsersController {
     } catch (error:any) {
       console.error("Error when creating instructor application:", error);
       const message = error.response || 'Failed to process application due to internal error';
-      res.status( HttpStatus.INTERNAL_SERVER_ERROR).json({
+      res.status( error.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
         success: false,
-        message
+        message:error.response
       });
     }
   }
