@@ -11,14 +11,21 @@ export class UsersController {
   ) {}
 
   @Get('instructor')
-  findAllInstructors() {
-    return 'hello world';
+  async findAllInstructors(@Res() res: Response) {
+    try {
+      const instructors = await this.userService.getAllInstructors()
+      res.status(HttpStatus.OK).json(instructors);
+  } catch (error) {
+    res.status( error.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message:error.response
+    });
+  }
   }
 
   @Post('instructor/apply')
   @UseGuards(JwtAuthGuard) 
   async createInstructorApplication(@Req() req: Request, @Res() res: Response) {
-    console.log(req.body,"!@#$%^&*(");
     
     try {
       const body: {

@@ -38,4 +38,15 @@ export class UsersService {
     });
     return newInstructor.save();
   }
+
+  async getAllInstructors(): Promise<User[]> {
+    try {
+        const allInstructors = await this.userModel.find({role: 'instructor'});
+        return allInstructors;
+    } catch (error) {
+        throw new HttpException('Failed to retrieve instructors', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+
 }
