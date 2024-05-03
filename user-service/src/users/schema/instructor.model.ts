@@ -1,4 +1,3 @@
-// instructor-application.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
@@ -8,9 +7,6 @@ export type InstructorApplicationDocument = InstructorApplication & Document;
 export class InstructorApplication {
   @Prop({ required: true, unique: true })
   email: string;
-
-  @Prop({ required: true, unique: true })
-  phone: string;
 
   @Prop({ required: true })
   profession: string;

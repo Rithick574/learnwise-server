@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schema/users.model';
@@ -20,11 +20,20 @@ export class UsersService {
     return newUser.save();
   }
 
-  async addInstructor(instructorData: any): Promise<InstructorApplication> {
-    if (typeof instructorData !== 'object') {
-      throw new TypeError('instructorData must be an object');
+  async addInstructor(instructorData: any, userId: string): Promise<InstructorApplication | null> {
+    const existingApplication = await this.instructorModel.findOne({ email: userId });
+    if (existingApplication) {
+      if (existingApplication.accepted) {
+        throw new HttpException('Already you are an instructor', HttpStatus.BAD_REQUEST);
+      } else {
+        throw new HttpException('Already applied', HttpStatus.BAD_REQUEST);
+      }
     }
-    const newInstructor = new this.instructorModel(instructorData);
+
+    const newInstructor = new this.instructorModel({
+      ...instructorData,
+      accepted: false 
+    });
     return newInstructor.save();
   }
 }
