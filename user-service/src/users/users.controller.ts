@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Req, Res, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'; 
 
 @Controller()
@@ -17,17 +17,18 @@ export class UsersController {
 
   @Post('instructor/apply')
   @UseGuards(JwtAuthGuard) 
-  async createInstructorApplication(@Req() req: Request, @Res() res: Response, next: NextFunction) {
+  async createInstructorApplication(@Req() req: Request, @Res() res: Response) {
     try {
       const body: {
         profession: string;
-        phone: string;
         profileDescription: string;
         linkedIn?: string;  
         github?: string;
       } = req.body;
 
-      const result = await this.userService.addInstructor(body); 
+      const userId = req.user.email;
+
+      const result = await this.userService.addInstructor(body, userId);
 
       if (!result) {
         throw new HttpException("Something went wrong, recheck your details", HttpStatus.BAD_REQUEST);
@@ -38,8 +39,13 @@ export class UsersController {
         data: result,
         message: "Applied successfully"
       });
-    } catch (error) {
-      next(error);
+    } catch (error:any) {
+      console.error("Error when creating instructor application:", error);
+      const message = error.response || 'Failed to process application due to internal error';
+      res.status( HttpStatus.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message
+      });
     }
   }
 }

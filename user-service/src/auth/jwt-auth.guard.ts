@@ -9,6 +9,14 @@ interface UserPayload {
     role: string;
 }
 
+declare global {
+    namespace Express {
+      interface Request {
+        user?: UserPayload;
+      }
+    }
+  }
+
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
@@ -31,3 +39,4 @@ export class JwtAuthGuard implements CanActivate {
         }
     }
 }
+
