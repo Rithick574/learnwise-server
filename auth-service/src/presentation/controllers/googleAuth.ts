@@ -1,114 +1,115 @@
 import { Request, Response, NextFunction } from "express";
-import { generateRefreshToken,generateAccessToken } from "@/_lib/jwt";
+import { generateRefreshToken, generateAccessToken } from "@/_lib/jwt";
 import { generateRandomString } from "@/_lib/util/generateRandomString";
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { UserEntity } from "@/domain/entities";
-// import { userCreatedProducer } from "@/infrastructure/kafka/producers";
-import {OAuth2Client} from "google-auth-library"
+import { userCreatedProducer } from "@/infrastructure/kafka/producers";
+import { OAuth2Client } from "google-auth-library";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const googleAuthController = (dependencies: IDependencies) => {
+  const {
+    useCases: { createUserUseCase, findUserByEmailUseCase },
+  } = dependencies;
 
-    const {
-        useCases: { createUserUseCase, findUserByEmailUseCase }
-    } = dependencies;
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { credential } = req.body;
 
-    return async (req: Request, res: Response, next: NextFunction) => {
+      const ticket = await client.verifyIdToken({
+        idToken: credential,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
 
-        try {          
-            const { credential} = req.body;
+      const payload = ticket.getPayload();
 
-            const ticket = await client.verifyIdToken({
-                idToken: credential,
-                audience: process.env.GOOGLE_CLIENT_ID,
-              });
+      if (!payload || !payload.email) {
+        return res.status(400).json({
+          success: false,
+          message:
+            "Google token is invalid or does not contain an email address.",
+        });
+      }
 
-            const payload = ticket.getPayload();
+      const { email, given_name, family_name } = payload;
 
-            if (!payload || !payload.email) {
-                return res.status(400).json({
-                    success: false,
-                    message: "Google token is invalid or does not contain an email address."
-                });
-            }
+      const exist = await findUserByEmailUseCase(dependencies).execute(email);
 
-            const { email, given_name, family_name } = payload;
+      if (exist) {
+        const accessToken = generateAccessToken({
+          _id: String(exist?._id),
+          email: exist?.email!,
+          role: exist?.role!,
+        });
 
-            const exist = await findUserByEmailUseCase(dependencies).execute(email);
+        const refreshToken = generateRefreshToken({
+          _id: String(exist?._id),
+          email: exist?.email!,
+          role: exist?.role!,
+        });
 
-            if(exist){
-                
-                const accessToken = generateAccessToken({
-                    _id: String(exist?._id),
-                    email: exist?.email!,
-                    role: exist?.role!
-                });
-    
-                const refreshToken = generateRefreshToken({
-                    _id: String(exist?._id),
-                    email: exist?.email!,
-                    role: exist?.role!
-                });
+        res.cookie("access_token", accessToken, {
+          httpOnly: true,
+        });
 
-                res.cookie("access_token", accessToken, {
-                    httpOnly: true
-                });
-    
-                res.cookie("refresh_token", refreshToken, {
-                    httpOnly: true
-                });
-    
-                return res.status(200).json({
-                    success: true,
-                    data: {},
-                    message: "User Google login!"
-                });
-                
-            }
+        res.cookie("refresh_token", refreshToken, {
+          httpOnly: true,
+        });
 
-            const result = await createUserUseCase(dependencies).execute({
-                email: email,
-                isVerified: true,
-                firstName: given_name,
-                lastName: "p",
-                password: `${generateRandomString()}`
-            } as UserEntity);
+        return res.status(200).json({
+          success: true,
+          data: {},
+          message: "User Google login!",
+        });
+      }
 
-            if (!result) {
-                throw new Error("User creation failed!");
-            }
+      const result = await createUserUseCase(dependencies).execute({
+        email: email,
+        isVerified: true,
+        firstName: given_name,
+        lastName: "p",
+        password: `${generateRandomString()}`,
+      } as UserEntity);
 
-            const accessToken = generateAccessToken({
-                _id: String(result?._id),
-                email: result?.email!,
-                role: result?.role!
-            });
+      
+      if (!result) {
+        throw new Error("User creation failed!");
+      }
 
-            const refreshToken = generateRefreshToken({
-                _id: String(result?._id),
-                email: result?.email!,
-                role: result?.role!
-            });
+      //produce-user-creation-message
+      await userCreatedProducer(result, "USER_SERVICE_TOPIC");
 
-            //produce-user-creation-message
-            // await userCreatedProducer(result);
-            
-            res.cookie("access_token", accessToken, {
-                httpOnly: true
-            });
 
-            res.cookie("refresh_token", refreshToken, {
-                httpOnly: true
-            });
+      const accessToken = generateAccessToken({
+        _id: String(result?._id),
+        email: result?.email!,
+        role: result?.role!,
+      });
 
-            res.status(200).json({
-                success: true,
-                data: {},
-                message: "User Google signup!"
-            });
+      const refreshToken = generateRefreshToken({
+        _id: String(result?._id),
+        email: result?.email!,
+        role: result?.role!,
+      });
 
-        } catch (error:any) {
-            next(error);
-        }
+      //produce-user-creation-message
+      // await userCreatedProducer(result);
+
+      res.cookie("access_token", accessToken, {
+        httpOnly: true,
+      });
+
+      res.cookie("refresh_token", refreshToken, {
+        httpOnly: true,
+      });
+
+      res.status(200).json({
+        success: true,
+        data: {},
+        message: "User Google signup!",
+      });
+    } catch (error: any) {
+      next(error);
     }
-}
+  };
+};
