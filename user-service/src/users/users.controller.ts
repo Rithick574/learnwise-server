@@ -18,6 +18,8 @@ export class UsersController {
   @Post('instructor/apply')
   @UseGuards(JwtAuthGuard) 
   async createInstructorApplication(@Req() req: Request, @Res() res: Response) {
+    console.log(req.body,"!@#$%^&*(");
+    
     try {
       const body: {
         profession: string;
@@ -27,8 +29,11 @@ export class UsersController {
       } = req.body;
 
       const userId = req.user.email;
+      console.log(userId,"8888888888888888888");
+      
 
       const result = await this.userService.addInstructor(body, userId);
+      console.log("🚀 ~ file: users.controller.ts:32 ~ UsersController ~ createInstructorApplication ~ result:", result)
 
       if (!result) {
         throw new HttpException("Something went wrong, recheck your details", HttpStatus.BAD_REQUEST);

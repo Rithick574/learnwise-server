@@ -21,6 +21,8 @@ export class UsersService {
   }
 
   async addInstructor(instructorData: any, userId: string): Promise<InstructorApplication | null> {
+    console.log("🚀 ~ file: users.service.ts:24 ~ UsersService ~ addInstructor ~ userId:", userId)
+    console.log("🚀 ~ file: users.service.ts:24 ~ UsersService ~ addInstructor ~ instructorData:", instructorData)
     const existingApplication = await this.instructorModel.findOne({ email: userId });
     if (existingApplication) {
       if (existingApplication.accepted) {
@@ -31,8 +33,8 @@ export class UsersService {
     }
 
     const newInstructor = new this.instructorModel({
-      ...instructorData,
-      accepted: false 
+      email:userId,
+      ...instructorData, 
     });
     return newInstructor.save();
   }
