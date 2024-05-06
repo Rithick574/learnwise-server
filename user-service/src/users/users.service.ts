@@ -72,26 +72,33 @@ export class UsersService {
       );
     }
   }
-  async updateApplicationStatusAndRole(id: string, email: string, accepted: boolean): Promise<any> {
+  async updateApplicationStatusAndRole(
+    id: string,
+    email: string,
+    accepted: boolean,
+  ): Promise<any> {
     try {
       const updateApp = await this.instructorModel.updateOne(
         { _id: id },
-        { $set: { accepted } }
+        { $set: { accepted } },
       );
       const updateUser = await this.userModel.updateOne(
         { email },
-        { $set: { role: 'instructor' } }
+        { $set: { role: 'instructor' } },
       );
       const record = {
         topic: 'user-service-topic',
         messages: [
-          { value: JSON.stringify({ email, newRole: 'instructor' }) },
+          {
+            key: 'updateUserRole',
+            value: JSON.stringify({ email, newRole: 'instructor' }),
+          },
         ],
       };
       await this.producerService.produce(record);
       return { success: true };
     } catch (error) {
       throw error;
+    }
   }
-}
 }
