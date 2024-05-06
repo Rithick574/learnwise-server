@@ -2,14 +2,18 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schema/users.model';
-import { InstructorApplication, InstructorApplicationDocument } from './schema/instructor.model';
+import {
+  InstructorApplication,
+  InstructorApplicationDocument,
+} from './schema/instructor.model';
 
 @Injectable()
 export class UsersService {
   constructor(
-      // constructor(private readonly _kafka: ProducerService) {}
+    // constructor(private readonly _kafka: ProducerService) {}
     @InjectModel(User.name) private userModel: Model<UserDocument>,
-    @InjectModel(InstructorApplication.name) private instructorModel: Model<InstructorApplicationDocument>
+    @InjectModel(InstructorApplication.name)
+    private instructorModel: Model<InstructorApplicationDocument>,
   ) {}
 
   async addUser(userData: any): Promise<User> {
@@ -20,33 +24,51 @@ export class UsersService {
     return newUser.save();
   }
 
-  async addInstructor(instructorData: any, userId: string): Promise<InstructorApplication | null> {
-    console.log("🚀 ~ file: users.service.ts:24 ~ UsersService ~ addInstructor ~ userId:", userId)
-    console.log("🚀 ~ file: users.service.ts:24 ~ UsersService ~ addInstructor ~ instructorData:", instructorData)
-    const existingApplication = await this.instructorModel.findOne({ email: userId });
+  async addInstructor(
+    instructorData: any,
+    userId: string,
+  ): Promise<InstructorApplication | null> {
+    const existingApplication = await this.instructorModel.findOne({
+      email: userId,
+    });
     if (existingApplication) {
       if (existingApplication.accepted) {
-        throw new HttpException('Already you are an instructor', HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          'Already you are an instructor',
+          HttpStatus.BAD_REQUEST,
+        );
       } else {
         throw new HttpException('Already applied', HttpStatus.BAD_REQUEST);
       }
     }
 
     const newInstructor = new this.instructorModel({
-      email:userId,
-      ...instructorData, 
+      email: userId,
+      ...instructorData,
     });
     return newInstructor.save();
   }
 
   async getAllInstructors(): Promise<User[]> {
     try {
-        const allInstructors = await this.userModel.find({role: 'instructor'});
-        return allInstructors;
+      const allInstructors = await this.userModel.find({ role: 'instructor' });
+      return allInstructors;
     } catch (error) {
-        throw new HttpException('Failed to retrieve instructors', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        'Failed to retrieve instructors',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
-}
-
-
+  }
+  async getAllInstructorRequests(): Promise<InstructorApplication[]> {
+    try {
+      const allRequests = await this.instructorModel.find({ accepted: false });
+      return allRequests;
+    } catch (error) {
+      throw new HttpException(
+        'Failed to retrieve instructor Requests',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 }
