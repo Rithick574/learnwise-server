@@ -36,11 +36,7 @@ export class UsersController {
       } = req.body;
 
       const userId = req.user.email;
-      console.log(userId,"8888888888888888888");
-      
-
       const result = await this.userService.addInstructor(body, userId);
-      console.log("🚀 ~ file: users.controller.ts:32 ~ UsersController ~ createInstructorApplication ~ result:", result)
 
       if (!result) {
         throw new HttpException("Something went wrong, recheck your details", HttpStatus.BAD_REQUEST);
@@ -60,5 +56,17 @@ export class UsersController {
       });
     }
   }
+ @Get('instructor/requests')
+ async instructorRequests(@Res() res: Response) {
+  try {
+    const instructorsRequest = await this.userService.getAllInstructorRequests()
+      res.status(HttpStatus.OK).json(instructorsRequest);
+  } catch (error) {
+    res.status( error.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message:error.response
+    });
+  }
+ }
 }
 
