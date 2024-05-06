@@ -71,4 +71,19 @@ export class UsersService {
       );
     }
   }
+  async updateApplicationStatusAndRole(id: string, email: string, accepted: boolean): Promise<any> {
+    try {
+      const updateApp = await this.instructorModel.updateOne(
+        { _id: id },
+        { $set: { accepted } }
+      );
+      const updateUser = await this.userModel.updateOne(
+        { email },
+        { $set: { role: 'instructor' } }
+      );
+      return { updateApp, updateUser };
+    } catch (error) {
+      throw error;
+  }
+}
 }
