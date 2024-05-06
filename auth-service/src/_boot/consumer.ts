@@ -12,6 +12,11 @@ export const runConsumer = async () => {
             fromBeginning: true
         });
 
+        await consumer.subscribe({
+            topic:'user-service-topic',
+            fromBeginning:true
+        })
+
         const subscriber = createSubscriber();
         console.log("here... in consumer.ts..!");
 
