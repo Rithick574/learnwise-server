@@ -6,11 +6,12 @@ import {
   InstructorApplication,
   InstructorApplicationDocument,
 } from './schema/instructor.model';
+import { ProducerService } from 'src/kafka/producer/producer.service';
 
 @Injectable()
 export class UsersService {
   constructor(
-    // constructor(private readonly _kafka: ProducerService) {}
+    private readonly producerService: ProducerService,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     @InjectModel(InstructorApplication.name)
     private instructorModel: Model<InstructorApplicationDocument>,
@@ -81,7 +82,14 @@ export class UsersService {
         { email },
         { $set: { role: 'instructor' } }
       );
-      return { updateApp, updateUser };
+      const record = {
+        topic: 'user-service-topic',
+        messages: [
+          { value: JSON.stringify({ email, newRole: 'instructor' }) },
+        ],
+      };
+      await this.producerService.produce(record);
+      return { success: true };
     } catch (error) {
       throw error;
   }
