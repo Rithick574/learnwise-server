@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res, HttpException, HttpStatus, UseGuards, Put, Body } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Request, Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'; 
@@ -68,5 +68,20 @@ export class UsersController {
     });
   }
  }
+@Put('instructor/application/accept')
+async instructorApplicationAccept(@Res() res: Response, @Body() body: { id: string, email: string }) {
+  try {
+    const updatedApplication = await this.userService.updateApplicationStatusAndRole(body.id, body.email, true);
+    res.json({
+      success: true,
+      data: updatedApplication
+    });
+  } catch (error) {
+    res.status(error.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: error.message || 'An error occurred during the process.'
+    });
+  }
+}
 }
 
