@@ -17,6 +17,9 @@ export class User {
   @Prop({ required: true })
   password: string;
 
+  @Prop({ required: true })
+  phoneNumber:string
+
   @Prop({ type: String, enum: ['student', 'instructor', 'admin'], default: 'student' })
   role: string;
 
@@ -46,7 +49,6 @@ export class User {
   })
   contact: {
     additionalEmail: string;
-    phone: string;
     socialMedia: {
       instagram: string;
       linkedIn: string;
