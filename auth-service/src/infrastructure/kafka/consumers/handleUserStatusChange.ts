@@ -1,0 +1,23 @@
+import { User } from "@/infrastructure/database/mongodb/models";
+
+export async function userBlockStatusChanged(data: {
+  userId: string;
+  isBlocked: boolean;
+}): Promise<void> {
+  console.log(`User ${data.userId} block status changed to ${data.isBlocked}`);
+  try {
+    const updated = await User.findByIdAndUpdate(data.userId, {
+      $set: { isBlocked: data.isBlocked }
+    }, { new: true });
+
+    if (!updated) {
+      console.error("No user found with the specified ID.");
+      return;
+    }
+
+    console.log(`User ${updated._id} block status successfully updated to ${updated.isBlocked}`);
+  } catch (error) {
+    console.error('Error updating user status:', error);
+    throw new Error('Error updating user status');
+  }
+}
