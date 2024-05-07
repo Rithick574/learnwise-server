@@ -78,20 +78,30 @@ export class UsersService {
     accepted: boolean,
   ): Promise<any> {
     try {
-      const updateApp = await this.instructorModel.updateOne(
+       await this.instructorModel.updateOne(
         { _id: id },
         { $set: { accepted } },
       );
+      const updatedApp  = await this.instructorModel.findOne({ _id: id });
+      const { github, linkedIn } = updatedApp ;
+      console.log("🚀 ~ file: users.service.ts:87 ~ UsersService ~ linkedIn:", linkedIn)
+      console.log("🚀 ~ file: users.service.ts:87 ~ UsersService ~ github:", github)
       const updateUser = await this.userModel.updateOne(
         { email },
-        { $set: { role: 'instructor' } },
+        { 
+          $set: { 
+            role: 'instructor',
+            'contact.socialMedia.github': github,    
+            'contact.socialMedia.linkedIn': linkedIn 
+          }
+        }
       );
       const record = {
         topic: 'user-service-topic',
         messages: [
           {
             key: 'updateUserRole',
-            value: JSON.stringify({ email, newRole: 'instructor' }),
+            value: JSON.stringify({ email, newRole: 'instructor',github, linkedIn }),
           },
         ],
       };
