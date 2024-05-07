@@ -41,14 +41,14 @@ const userSchema = new Schema({
         additionalEmail: {
             type: String
         },
-        phone: {
-            type: String,
-        },
         socialMedia: {
             instagram: String,
             linkedIn: String,
             github: String
         }
+    },
+    phoneNumber: { 
+        type: String,
     },
     isBlocked: {
         type: Boolean,
