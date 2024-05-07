@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schema/users.model';
@@ -84,8 +84,6 @@ export class UsersService {
       );
       const updatedApp  = await this.instructorModel.findOne({ _id: id });
       const { github, linkedIn } = updatedApp ;
-      console.log("🚀 ~ file: users.service.ts:87 ~ UsersService ~ linkedIn:", linkedIn)
-      console.log("🚀 ~ file: users.service.ts:87 ~ UsersService ~ github:", github)
       const updateUser = await this.userModel.updateOne(
         { email },
         { 
@@ -111,4 +109,34 @@ export class UsersService {
       throw error;
     }
   }
+
+  async blockUnblockInstructor(id: string, isBlocked: boolean): Promise<UserDocument> {
+    const instructor = await this.userModel.findById(id);
+    if (!instructor) {
+      throw new NotFoundException('Instructor not found');
+    }
+
+    instructor.isBlocked = isBlocked;
+    await instructor.save();
+
+    const record = {
+      topic: 'user-status-update',
+      messages: [
+        {
+          key: 'userBlockStatusChanged',
+          value: JSON.stringify({
+            id: instructor._id.toString(),
+            isBlocked
+          }),
+        },
+      ],
+    };
+     try {
+      await this.producerService.produce(record);
+      return instructor;
+    } catch (error) {
+      throw new HttpException('Failed to send status update message', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
 }

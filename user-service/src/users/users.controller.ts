@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res, HttpException, HttpStatus, UseGuards, Put, Body } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res, HttpException, HttpStatus, UseGuards, Put, Body, Patch, Param, NotFoundException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Request, Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'; 
@@ -83,5 +83,27 @@ async instructorApplicationAccept(@Res() res: Response, @Body() body: { id: stri
     });
   }
 }
+@Patch('instructor/admin-block-unblock/:id')
+  async blockUnblockInstructor(
+    @Param('id') id: string,
+    @Body('isBlocked') isBlocked: boolean,
+    @Res() res: Response
+  ): Promise<Response> {
+    try {
+      const instructor = await this.userService.blockUnblockInstructor(id, isBlocked);
+      return res.status(HttpStatus.OK).json({
+        message: `Instructor has been ${isBlocked ? 'blocked' : 'unblocked'}`,
+        data: instructor
+      });
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        return res.status(HttpStatus.NOT_FOUND).json({ message: error.message });
+      }
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        message: 'Error updating instructor status',
+        error: error.message
+      });
+    }
+  }
 }
 
