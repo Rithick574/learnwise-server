@@ -36,6 +36,7 @@ export interface UserEntity {
     lastName: string;
     email: string;
     password?: string;
+    phoneNumber: string;
     role: Role;
     profile?: Profile;
     contact?: Contact;
