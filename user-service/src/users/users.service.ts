@@ -104,6 +104,18 @@ export class UsersService {
         ],
       };
       await this.producerService.produce(record);
+      const emailRecord = {
+        topic: 'notification-service-topic',
+        messages: [
+          {
+            key: 'emailNotificationForInstructorApplication',
+            value: JSON.stringify({
+              email,
+            }),
+          },
+        ],
+      };
+      await this.producerService.produce(emailRecord);
       return { success: true };
     } catch (error) {
       throw error;
