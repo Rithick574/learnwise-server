@@ -23,6 +23,10 @@ export const loginController = (dependencies: IDependencies) => {
         return next(ErrorResponse.unauthorized("We couldn't find an account with that email address"));
     }
 
+    if(result.isBlocked){
+      return next(ErrorResponse.unauthorized("Learnwise team blocked your account"));
+    }
+
     const match = await comparePassword(value.password, result.password!);
 
     if(!match){
