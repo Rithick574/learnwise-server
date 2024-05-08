@@ -1,12 +1,14 @@
 import { User } from "@/infrastructure/database/mongodb/models";
 
 export async function userBlockStatusChanged(data: {
-  userId: string;
+  id: string;
   isBlocked: boolean;
 }): Promise<void> {
-  console.log(`User ${data.userId} block status changed to ${data.isBlocked}`);
+  console.log(data);
+  
+  console.log(`User ${data.id} block status changed to ${data.isBlocked}`);
   try {
-    const updated = await User.findByIdAndUpdate(data.userId, {
+    const updated = await User.findByIdAndUpdate(data.id, {
       $set: { isBlocked: data.isBlocked }
     }, { new: true });
 
