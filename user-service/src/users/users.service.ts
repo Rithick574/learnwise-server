@@ -150,5 +150,21 @@ export class UsersService {
       throw new HttpException('Failed to send status update message', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
+  async editUserProfile(userId: string, data: {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    dateOfBirth: string; 
+    profileImgURL?: string | File; 
+    github?: string;
+    linkedin?: string;
+    instagram?: string;
+  }): Promise<User> {
+try {
+  const user = await this.userModel.findOne({ where: { id: userId } });
+  return user;
+} catch (error) {
+  
+}
+  }
 }
