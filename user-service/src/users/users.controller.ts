@@ -106,19 +106,30 @@ async instructorApplicationAccept(@Res() res: Response, @Body() body: { id: stri
     }
   }
 
-@Post('instructor/edit-profile')
+@Post('edit-profile')
   async editUserProfile(@Req() req:Request,@Res() res:Response):Promise<Response>{
     try {
-      const userId = req.user.email;
+      const userId = req.body.email;
+      console.log("🚀 ~ file: users.controller.ts:113 ~ UsersController ~ editUserProfile ~ userId:", userId)
+      console.log("🚀 ~ file: users.controller.ts:136 ~ UsersController ~ editUserProfile ~ body:", req.body)
       const body:{
         firstName: string;
         lastName: string;
-        phoneNumber: string;
-        dateOfBirth: string; 
-        profileImgURL?: string | File; 
-        github?: string;
-        linkedin?: string;
-        instagram?: string;
+        phoneNumber?: string;
+        profile?:{
+          avatar?:string;
+          dob?:string;
+          gender?:string
+        }
+        contact?: {
+          socialMedia: {
+              instagram?: string;
+              github?: string;
+              linkedIn?: string;
+          };
+          additionalEmail?: string;
+      };
+        email:string;
       } = req.body;
       const updatedUser = await this.userService.editUserProfile(userId,body)
       return res.status(HttpStatus.OK).json({
@@ -126,6 +137,7 @@ async instructorApplicationAccept(@Res() res: Response, @Body() body: { id: stri
         data:updatedUser,
         message:'Profile updated successfully'
       })
+      
     } catch (error) {
       console.error('Error when editing user profile:', error);
       return res.status(error.status || HttpStatus.INTERNAL_SERVER_ERROR).json({

@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schema/users.model';
@@ -78,28 +83,30 @@ export class UsersService {
     accepted: boolean,
   ): Promise<any> {
     try {
-       await this.instructorModel.updateOne(
-        { _id: id },
-        { $set: { accepted } },
-      );
-      const updatedApp  = await this.instructorModel.findOne({ _id: id });
-      const { github, linkedIn } = updatedApp ;
+      await this.instructorModel.updateOne({ _id: id }, { $set: { accepted } });
+      const updatedApp = await this.instructorModel.findOne({ _id: id });
+      const { github, linkedIn } = updatedApp;
       const updateUser = await this.userModel.updateOne(
         { email },
-        { 
-          $set: { 
+        {
+          $set: {
             role: 'instructor',
-            'contact.socialMedia.github': github,    
-            'contact.socialMedia.linkedIn': linkedIn 
-          }
-        }
+            'contact.socialMedia.github': github,
+            'contact.socialMedia.linkedIn': linkedIn,
+          },
+        },
       );
       const record = {
         topic: 'user-service-topic',
         messages: [
           {
             key: 'updateUserRole',
-            value: JSON.stringify({ email, newRole: 'instructor',github, linkedIn }),
+            value: JSON.stringify({
+              email,
+              newRole: 'instructor',
+              github,
+              linkedIn,
+            }),
           },
         ],
       };
@@ -122,7 +129,10 @@ export class UsersService {
     }
   }
 
-  async blockUnblockInstructor(id: string, isBlocked: boolean): Promise<UserDocument> {
+  async blockUnblockInstructor(
+    id: string,
+    isBlocked: boolean,
+  ): Promise<UserDocument> {
     const instructor = await this.userModel.findById(id);
     if (!instructor) {
       throw new NotFoundException('Instructor not found');
@@ -138,33 +148,81 @@ export class UsersService {
           key: 'userBlockStatusChanged',
           value: JSON.stringify({
             id: instructor._id.toString(),
-            isBlocked
+            isBlocked,
           }),
         },
       ],
     };
-     try {
+    try {
       await this.producerService.produce(record);
       return instructor;
     } catch (error) {
-      throw new HttpException('Failed to send status update message', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        'Failed to send status update message',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
-  async editUserProfile(userId: string, data: {
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    dateOfBirth: string; 
-    profileImgURL?: string | File; 
-    github?: string;
-    linkedin?: string;
-    instagram?: string;
-  }): Promise<User> {
-try {
-  const user = await this.userModel.findOne({ where: { id: userId } });
-  return user;
-} catch (error) {
-  
-}
+  async editUserProfile(
+    userId: string,
+    data: {
+      firstName: string;
+      lastName: string;
+      phoneNumber?: string;
+      profile?: {
+        avatar?: string;
+        dob?: string;
+        gender?: string;
+      };
+      contact?: {
+        socialMedia: {
+          instagram?: string;
+          github?: string;
+          linkedIn?: string;
+        };
+        additionalEmail?: string;
+      };
+      email: string;
+    },
+  ): Promise<User> {
+    try {
+      const user = await this.userModel.findOne({ email: userId });
+      console.log(
+        '🚀 ~ file: users.service.ts:166 ~ UsersService ~ user:',
+        user,
+      );
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      const _id = user._id;
+      const updatedUserData = await this.userModel.findOneAndUpdate(
+        { _id },
+        { $set: { ...data } },
+        { new: true },
+      );
+
+      //producer kafka
+      const kafkaMessage = {
+        email: userId,
+        updatedUserData: updatedUserData.toJSON(), 
+      };
+      const kafkaRecord = {
+        topic: 'user-profile-update',
+        messages: [
+          {
+            key: 'userProfileUpdate',
+            value: JSON.stringify({kafkaMessage}),
+          },
+        ],
+      };
+      await this.producerService.produce(kafkaRecord);
+      return updatedUserData;
+    } catch (error) {
+      throw new HttpException(
+        'Failed to edit user profile',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
