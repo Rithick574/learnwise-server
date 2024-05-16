@@ -23,8 +23,12 @@ export const runConsumer = async () => {
       fromBeginning: true,
     });
 
+    await consumer.subscribe({
+      topic: "user-profile-update",
+      fromBeginning: true,
+    });
+
     const subscriber = createSubscriber();
-    console.log("here... in consumer.ts..!");
 
     await consumer.run({
       eachMessage: async ({ message }) => {
