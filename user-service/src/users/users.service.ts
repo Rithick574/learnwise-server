@@ -233,6 +233,24 @@ export class UsersService {
 
   async updatePassword(userId: string, hashedNewPassword: string): Promise<void> {
     await this.userModel.updateOne({ _id: userId }, { $set: { password: hashedNewPassword } });
+    const updatedUserData = await this.userModel.findById(userId);
+    if (!updatedUserData) {
+      throw new Error('User not found after updating password');
   }
-
+     // Produce Kafka message
+     const kafkaMessage = {
+      email: updatedUserData.email,
+      updatedUserData: updatedUserData.toJSON(),
+  };
+  const kafkaRecord = {
+      topic: 'user-profile-update',
+      messages: [
+          {
+              key: 'userProfileUpdate',
+              value: JSON.stringify({ kafkaMessage }),
+          },
+      ],
+  };
+  await this.producerService.produce(kafkaRecord);
+  }
 }

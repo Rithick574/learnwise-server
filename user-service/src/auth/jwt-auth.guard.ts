@@ -34,10 +34,12 @@ export class JwtAuthGuard implements CanActivate {
             }
 
             let user: UserPayload | null = null;
-
+            const ACCESS_TOKEN_SECRET="AYjcyMzY3ZDhiNmJkNTY"
+            const REFRESH_TOKEN_SECRET="RjY2NjM5NzA2OWJjuE7c"
+            
             if (access_token) {
                 try {
-                    user = jwt.verify(access_token, process.env.ACCESS_TOKEN_SECRET!) as UserPayload;
+                    user = jwt.verify(access_token,ACCESS_TOKEN_SECRET!) as UserPayload;
                 } catch (error) {
                     console.log('Access token expired or invalid');
                 }
@@ -45,10 +47,10 @@ export class JwtAuthGuard implements CanActivate {
 
             if (!user && refresh_token) {
                 try {
-                    user = jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET!) as UserPayload;
+                    user = jwt.verify(refresh_token,REFRESH_TOKEN_SECRET!) as UserPayload;
                     if (user) {
                         const {_id, email, role}=user;
-                        const secret = process.env.ACCESS_TOKEN_SECRET;
+                        const secret = ACCESS_TOKEN_SECRET;
                         if (!secret) {
                             throw new Error("Access token secret is not defined!");
                         }                    
