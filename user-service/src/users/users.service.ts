@@ -225,4 +225,14 @@ export class UsersService {
       );
     }
   }
+
+  async findById(_id: string): Promise<User> {
+    const user = await this.userModel.findById(_id)
+    return user;
+  }
+
+  async updatePassword(userId: string, hashedNewPassword: string): Promise<void> {
+    await this.userModel.updateOne({ _id: userId }, { $set: { password: hashedNewPassword } });
+  }
+
 }

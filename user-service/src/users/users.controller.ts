@@ -2,6 +2,7 @@ import { Controller, Get, Post, Req, Res, HttpException, HttpStatus, UseGuards, 
 import { UsersService } from './users.service';
 import { Request, Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'; 
+import * as bcrypt from 'bcrypt';
 
 @Controller()
 export class UsersController {
@@ -110,8 +111,6 @@ async instructorApplicationAccept(@Res() res: Response, @Body() body: { id: stri
   async editUserProfile(@Req() req:Request,@Res() res:Response):Promise<Response>{
     try {
       const userId = req.body.email;
-      console.log("🚀 ~ file: users.controller.ts:113 ~ UsersController ~ editUserProfile ~ userId:", userId)
-      console.log("🚀 ~ file: users.controller.ts:136 ~ UsersController ~ editUserProfile ~ body:", req.body)
       const body:{
         firstName: string;
         lastName: string;
@@ -143,6 +142,52 @@ async instructorApplicationAccept(@Res() res: Response, @Body() body: { id: stri
       return res.status(error.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
         success: false,
         message: error.message || 'An error occurred while editing the user profile',
+      });
+    }
+  }
+  @Post('reset-password')
+  @UseGuards(JwtAuthGuard) 
+  async resetUserpassword(@Req() req: Request, @Res() res: Response): Promise<Response> {
+    try {
+      const { currentPassword, newPassword } = req.body;
+
+      const {_id} = req.user;
+      const user = await this.userService.findById(_id);
+
+      if (!user) {
+        return res.status(HttpStatus.NOT_FOUND).json({
+          success: false,
+          message: 'User not found',
+        });
+      }
+
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      if (!isMatch) {
+        return res.status(HttpStatus.BAD_REQUEST).json({
+          success: false,
+          message: 'Current password is incorrect',
+        });
+      }
+
+      if (currentPassword === newPassword) {
+        return res.status(HttpStatus.BAD_REQUEST).json({
+          success: false,
+          message: 'New password cannot be the same as the current password',
+        });
+      }
+
+      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+      await this.userService.updatePassword(_id, hashedNewPassword);
+
+      return res.status(HttpStatus.OK).json({
+        success: true,
+        message: 'Password updated successfully',
+      });
+    } catch (error) {
+      console.error('Error when resetting user password:', error);
+      return res.status(error.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: error.message || 'An error occurred while resetting password',
       });
     }
   }
