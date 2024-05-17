@@ -27,6 +27,7 @@
     "@nestjs/mongoose": "^10.0.6",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
+    "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "jsonwebtoken": "^9.0.2",
     "kafkajs": "^2.2.4",

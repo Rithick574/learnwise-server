@@ -1,6 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException, ForbiddenException } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { Request } from 'express';
+import { Request,Response  } from 'express';
 import * as jwt from 'jsonwebtoken';
 
 interface UserPayload {
@@ -19,23 +19,58 @@ declare global {
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-    canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+    async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest<Request>();
-        return this.validateRequest(request);
+        const response = context.switchToHttp().getResponse<Response>();
+        return this.validateRequest(request, response);
     }
 
-    private async validateRequest(req: Request): Promise<boolean> {
-        const token = req.cookies?.access_token || (req.headers.authorization?.split(' ')[1] || '');
-        if (!token) {
-            throw new UnauthorizedException();
-        }
+    private async validateRequest(req: Request, res: Response): Promise<boolean> {
         try {
-            const AToken="AYjcyMzY3ZDhiNmJkNTY"
-            const decoded = jwt.verify(token, AToken!) as UserPayload;
-            req.user = decoded;
+            const { access_token, refresh_token } = req.cookies;
+
+            if (!access_token && !refresh_token) {
+                throw new UnauthorizedException();
+            }
+
+            let user: UserPayload | null = null;
+
+            if (access_token) {
+                try {
+                    user = jwt.verify(access_token, process.env.ACCESS_TOKEN_SECRET!) as UserPayload;
+                } catch (error) {
+                    console.log('Access token expired or invalid');
+                }
+            }
+
+            if (!user && refresh_token) {
+                try {
+                    user = jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET!) as UserPayload;
+                    if (user) {
+                        const {_id, email, role}=user;
+                        const secret = process.env.ACCESS_TOKEN_SECRET;
+                        if (!secret) {
+                            throw new Error("Access token secret is not defined!");
+                        }                    
+                        const newAccessToken = jwt.sign({ _id, email, role }, secret, { expiresIn: '24h' });
+                        res.cookie('access_token', newAccessToken, {
+                            httpOnly: true,
+                        });
+                    }
+                } catch (error) {
+                    console.log('Refresh token expired or invalid');
+                }
+            }
+
+            if (!user) {
+                throw new ForbiddenException();
+            }
+
+            req.user = user;
             return true;
-        } catch (err) {
-            throw new ForbiddenException();
+        } catch (error) {
+            console.error('Error in JWT guard:', error);
+            throw error;
         }
     }
 }
