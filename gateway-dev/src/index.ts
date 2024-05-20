@@ -30,6 +30,7 @@ const services = {
   auth: process.env.AUTH_SERVICE,
   user: process.env.USER_SERVICE,
   notification: process.env.NOTIFICATION_SERVICE,
+  course:process.env.COURSE_SERVICE,
 };
 
 const routes = [
@@ -48,6 +49,11 @@ const routes = [
     target: services.user,
     changeOrigin: true,
   },
+  {
+    context:"/api/course",
+    target: services.course,
+    changeOrigin:true,
+  }
 ];
 
 // Proxy setup for routes
