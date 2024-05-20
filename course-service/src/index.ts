@@ -1,4 +1,4 @@
-import database from "@/_boot/connfig";
+import database from "@/_boot/config";
 import server from  "@/presentation"
 
 (async () => {
