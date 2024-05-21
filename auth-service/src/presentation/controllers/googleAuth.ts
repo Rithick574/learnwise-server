@@ -58,7 +58,7 @@ export const googleAuthController = (dependencies: IDependencies) => {
 
         return res.status(200).json({
           success: true,
-          data: {},
+          data: exist,
           message: "User Google login!",
         });
       }
@@ -92,8 +92,6 @@ export const googleAuthController = (dependencies: IDependencies) => {
         role: result?.role!,
       });
 
-      //produce-user-creation-message
-      // await userCreatedProducer(result);
 
       res.cookie("access_token", accessToken, {
         httpOnly: true,
@@ -105,7 +103,7 @@ export const googleAuthController = (dependencies: IDependencies) => {
 
       res.status(200).json({
         success: true,
-        data: {},
+        data: result,
         message: "User Google signup!",
       });
     } catch (error: any) {
