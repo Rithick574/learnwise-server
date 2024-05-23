@@ -2,32 +2,27 @@ import { IDependencies } from "@/application/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
 
 export const updateCategoryController = (dependencies: IDependencies) => {
+  const {
+    useCases: { updateCategoryUseCase },
+  } = dependencies;
 
-    const {
-        useCases: { updateCategoryUseCase }
-    } = dependencies;
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const body = req.body;
 
-    return async (req: Request, res: Response, next: NextFunction) => {
+      const result = await updateCategoryUseCase(dependencies).execute(body);
 
-        try {
+      if (!result) {
+        throw new Error("Category updation failed");
+      }
 
-            const body = req.body;
-
-            const result = await updateCategoryUseCase(dependencies)
-                .execute(body);
-
-            if(!result){
-                throw new Error("Category updation failed");
-            }
-
-            res.status(200).json({
-                success: true,
-                data: result,
-                message: "Category updated!"
-            });
-
-        } catch (error) {
-            next(error);
-        }
+      res.status(200).json({
+        success: true,
+        data: result,
+        message: "Category updated!",
+      });
+    } catch (error) {
+      next(error);
     }
-}
+  };
+};
