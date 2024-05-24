@@ -11,10 +11,10 @@ export const routes = (dependencies: IDependencies) => {
     const {createCategory,getAllCategories,getAvailableCategories,updateCategory,createUploadUrl,getPlaybackid} = controllers(dependencies)
 
     router.route('/')
-    .get(jwtMiddleware,verifyAdmin,getAllCategories)
+    // .get(jwtMiddleware,verifyAdmin,getAllCategories)
+    .get(getAllCategories)
     .post(jwtMiddleware,verifyAdmin,createCategory)
-    .put(updateCategory)
-    // .put(jwtMiddleware,verifyAdmin,updateCategory)
+    .put(jwtMiddleware,verifyAdmin,updateCategory)
     router.route("/category/available")
         .get(getAvailableCategories);
     router.route("/create-upload-url").post(createUploadUrl)    
