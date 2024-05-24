@@ -1,3 +1,5 @@
+
+
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
 
@@ -12,25 +14,17 @@ export const getAllCategoriesController = (dependencies: IDependencies) => {
       let filter:any = {};
       if (status) {
         if (status === "active") {
-          filter.isBlocked = true;
-        } else {
           filter.isBlocked = false;
+        } else {
+          filter.isBlocked = true;
         }
       }
       if (search) {
         filter.title = { $regex: new RegExp(search as string, "i") };
       }
-      const result = await getAllCategoriesUseCase(dependencies).execute(filter, Number(page), Number(limit));
+      const { result: categories, totalAvailableCategories } = await getAllCategoriesUseCase(dependencies).execute(filter, Number(page), Number(limit));
 
-      if (!result) {
-        throw new Error("Categories retrievel failed");
-      }
-
-      res.status(200).json({
-        success: true,
-        data: result,
-        message: "Categories retrieved!",
-      });
+      res.status(200).json({ categories, totalAvailableCategories });
     } catch (error) {
       next(error);
     }
