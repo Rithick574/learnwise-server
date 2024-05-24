@@ -7,8 +7,8 @@ export const getAllCategoriesUseCase = (dependencies: IDependencies) => {
     } = dependencies;
 
     return {
-        execute: async () => {
-            return await getAllCategories();
+        execute: async (filter: any, page: number, limit: number) => {
+            return await getAllCategories(filter, page, limit);
         }
     }
 };
