@@ -1,6 +1,6 @@
 import { CategoryEntity } from "@/domain/entities/categoryEntity";
 import { Category } from "../../models/category";
-
+import {ErrorResponse} from "@learnwise/common"
 
 export const updateCategory = async (
     data: CategoryEntity
@@ -13,7 +13,7 @@ export const updateCategory = async (
         });
 
         if (existingCategory) {
-            throw new Error("Category with this title already exists!");
+            throw ErrorResponse.conflict("Category with this title already exists!");
         }
 
         const updatedData = { ...data, title: normalizedTitle };
@@ -21,12 +21,15 @@ export const updateCategory = async (
         const category = await Category.findByIdAndUpdate(data._id, updatedData, { new: true });
 
         if (!category) {
-            throw new Error("Category updation failed!");
+            throw ErrorResponse.internalError("Category updation failed!");
         }
 
         return category;
 
     } catch (error: any) {
-        throw new Error(error?.message);
+        if (error instanceof ErrorResponse) {
+            throw error; 
+        }
+        throw ErrorResponse.internalError(error.message || "An unexpected error occurred");
     }
-}
+    }

@@ -2,7 +2,7 @@ import express, { Application,Request,Response } from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 dotenv.config();
-import {errorHandler} from "@/_lib/common/error"
+import {errorHandler} from "@learnwise/common"
 import {routes} from "@/infrastructure/routes"
 import { dependencies } from "@/_boot/dependencies";
 
