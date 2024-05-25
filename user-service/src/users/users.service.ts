@@ -12,6 +12,8 @@ import {
   InstructorApplicationDocument,
 } from './schema/instructor.model';
 import { ProducerService } from 'src/kafka/producer/producer.service';
+import { InstructorQueryDto } from './dto/instructor-query.dto';
+import { InstructorResponse } from './interfaces/instructor-response.interface';
 
 @Injectable()
 export class UsersService {
@@ -55,10 +57,35 @@ export class UsersService {
     return newInstructor.save();
   }
 
-  async getAllInstructors(): Promise<User[]> {
+  async getAllInstructors(query: InstructorQueryDto): Promise<InstructorResponse> {
     try {
-      const allInstructors = await this.userModel.find({ role: 'instructor' });
-      return allInstructors;
+      const { status, search, page, limit } = query;
+      let filter: any = { role: 'instructor' };
+      if (status) {
+        filter.isBlocked = status === 'blocked';
+      }
+      if (search) {
+        filter = {
+          ...filter,
+          $or: [
+            { firstName: { $regex: new RegExp(search, 'i') } },
+            { lastName: { $regex: new RegExp(search, 'i') } },
+            { email: { $regex: new RegExp(search, 'i') } }
+          ]
+        };
+      }
+      const [instructors, total] = await Promise.all([
+        this.userModel.find(filter)
+          .skip((page - 1) * limit)
+          .limit(limit)
+          .exec(),
+        this.userModel.countDocuments(filter).exec(),
+      ]);
+
+      return {
+        instructors,
+        totalAvailableInstructors: total,
+      }
     } catch (error) {
       throw new HttpException(
         'Failed to retrieve instructors',
@@ -66,6 +93,7 @@ export class UsersService {
       );
     }
   }
+
   async getAllInstructorRequests(): Promise<InstructorApplication[]> {
     try {
       const allRequests = await this.instructorModel.find({ accepted: false });

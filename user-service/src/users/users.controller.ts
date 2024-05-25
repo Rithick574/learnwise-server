@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Req, Res, HttpException, HttpStatus, UseGuards, Put, Body, Patch, Param, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res, HttpException, HttpStatus, UseGuards, Put, Body, Patch, Param, NotFoundException, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Request, Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'; 
 import * as bcrypt from 'bcrypt';
+import { InstructorQueryDto } from './dto/instructor-query.dto';
 
 @Controller()
 export class UsersController {
@@ -12,9 +13,9 @@ export class UsersController {
   ) {}
 
   @Get('instructor')
-  async findAllInstructors(@Res() res: Response) {
+  async findAllInstructors(@Query() query: InstructorQueryDto,@Res() res: Response) {
     try {
-      const instructors = await this.userService.getAllInstructors()
+      const instructors = await this.userService.getAllInstructors(query)
       res.status(HttpStatus.OK).json(instructors);
   } catch (error) {
     res.status( error.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
