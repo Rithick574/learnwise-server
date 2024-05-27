@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-app.use("/",routes(dependencies))
+app.use("/",routes(dependencies));
 
 
 app.use("*",(req: Request, res: Response) => {
