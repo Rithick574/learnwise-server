@@ -26,7 +26,7 @@ const trialSchema=new Schema({
         type: String
     },
     description: {
-        type: String
+        type: [String]
     },
     thumbnail: {
         type: String
