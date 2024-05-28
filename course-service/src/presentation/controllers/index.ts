@@ -9,7 +9,7 @@ import {
 } from "@/presentation/controllers/category";
 
 //course
-import {createEndpointUrl,getPlaybackId} from "@/presentation/controllers/course"
+import {createCourseController, createEndpointUrl,getPlaybackId} from "@/presentation/controllers/course"
 
 export const controllers = (dependencies: IDependencies) => {
     return {
@@ -19,5 +19,6 @@ export const controllers = (dependencies: IDependencies) => {
         updateCategory: updateCategoryController(dependencies),
         createUploadUrl:createEndpointUrl(dependencies),
         getPlaybackid:getPlaybackId(),
+        createCourse: createCourseController(dependencies),
     }
 };
