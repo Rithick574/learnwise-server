@@ -10,7 +10,10 @@ const subLessonSchema=new Schema({
     video: {
         type: String,
         required: true
-      }
+      },
+    description:{
+      type:String,
+    }
 })
 
 const lessonSchema = new Schema({

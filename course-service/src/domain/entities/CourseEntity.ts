@@ -3,6 +3,7 @@ import { Types } from "mongoose";
 export interface SubLesson {
   title: string;
   video: string;
+  description:string;
 }
 
 export interface Lesson {
