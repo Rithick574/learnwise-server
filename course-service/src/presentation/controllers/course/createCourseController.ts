@@ -9,7 +9,6 @@ export const createCourseController =(dependencies: IDependencies)=>{
         } = dependencies;
         try {
             const data = req.body;
-            console.log("🚀 ~ file: createCourseController.ts:12 ~ returnasync ~ data:", data)
             
             const result = await createCourseUseCase(dependencies)
                 .execute(data);
