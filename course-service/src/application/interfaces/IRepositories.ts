@@ -10,5 +10,5 @@ export interface IRepositories {
     createCourse: (data: CourseEntity) => Promise<CourseEntity | null>;
     courseRepository:(filter: any, page: number, limit: number)=>Promise<CourseEntity[] | null>;
     getPublishedAndUnblocked:()=>Promise<CourseEntity[] | null >;
-    getCourse:(id:string)=>Promise<CourseEntity[] | null>;
+    getCourse:(id:string)=>Promise<CourseEntity | null>;
 }
