@@ -5,7 +5,7 @@ import { ErrorResponse } from "@learnwise/common";
 
 export const courseRepository=async():Promise<CourseEntity[] | null> =>{
     try {
-        const courses = await Course.find()
+        const courses = await Course.find().populate({ path: "categoryRef", select: "title" });
         
     if (!courses) {
         throw ErrorResponse.internalError("Course creation failed!");
