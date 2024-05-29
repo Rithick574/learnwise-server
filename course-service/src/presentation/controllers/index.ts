@@ -9,7 +9,7 @@ import {
 } from "@/presentation/controllers/category";
 
 //course
-import {createCourseController, createEndpointUrl,getPlaybackId} from "@/presentation/controllers/course"
+import {createCourseController, createEndpointUrl,getPlaybackId,getAllCoursesController,getPublishedCoursesController} from "@/presentation/controllers/course"
 
 export const controllers = (dependencies: IDependencies) => {
     return {
@@ -20,5 +20,7 @@ export const controllers = (dependencies: IDependencies) => {
         createUploadUrl:createEndpointUrl(dependencies),
         getPlaybackid:getPlaybackId(),
         createCourse: createCourseController(dependencies),
+        getAllCourses:getAllCoursesController(dependencies),
+        getPublishedCourses:getPublishedCoursesController(dependencies),
     }
 };
