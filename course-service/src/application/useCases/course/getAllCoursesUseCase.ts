@@ -5,8 +5,8 @@ export const getAllCoursesUseCase = (dependencies: IDependencies) => {
         repositories: { courseRepository }
     } = dependencies;
   return {
-    execute: async () => {
-      return await courseRepository();
+    execute: async (filter: any, page: number, limit: number) => {
+      return await courseRepository(filter, page, limit);
     }
   };
 };

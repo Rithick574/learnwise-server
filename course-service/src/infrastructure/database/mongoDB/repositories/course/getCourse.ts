@@ -3,15 +3,14 @@ import { Course } from "../../models/course";
 import { ErrorResponse } from "@learnwise/common";
 
 
-export const courseRepository=async(filter: any, page: number, limit: number):Promise<CourseEntity[] | null> =>{
+export const getCourse=async(id:string):Promise<CourseEntity[] | null> =>{
     try {
-      const skip = (page - 1) * limit;
-        const courses = await Course.find(filter).populate({ path: "categoryRef", select: "title" }).skip(skip).limit(limit).sort({createdAt:-1});
+        const course = await Course.find({_id:id})
         
-    if (!courses) {
-        throw ErrorResponse.internalError("Course creation failed!");
+    if (!course) {
+        throw ErrorResponse.notFound("Course not found");
       }
-    return courses;
+    return course;
     } catch (error:any) {
         if (error instanceof ErrorResponse) {
             throw error;

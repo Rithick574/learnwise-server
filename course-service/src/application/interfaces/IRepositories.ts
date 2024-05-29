@@ -8,6 +8,7 @@ export interface IRepositories {
     createCategory: (data: CategoryEntity) => Promise<CategoryEntity | null>;
     updateCategory: (data: CategoryEntity) => Promise<CategoryEntity | null>;
     createCourse: (data: CourseEntity) => Promise<CourseEntity | null>;
-    courseRepository:()=>Promise<CourseEntity[] | null>;
+    courseRepository:(filter: any, page: number, limit: number)=>Promise<CourseEntity[] | null>;
     getPublishedAndUnblocked:()=>Promise<CourseEntity[] | null >;
+    getCourse:(id:string)=>Promise<CourseEntity[] | null>;
 }

@@ -2,5 +2,5 @@ import { CourseEntity } from "@/domain/entities/CourseEntity";
 
 
 export interface IGetAllCoursesUseCase {
-    execute(): Promise<CourseEntity[] | null>;
+    execute(filter: any, page: number, limit: number): Promise<CourseEntity[] | null>;
 }
