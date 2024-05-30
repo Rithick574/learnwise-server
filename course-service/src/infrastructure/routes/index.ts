@@ -44,7 +44,7 @@ export const routes = (dependencies: IDependencies) => {
     .get(getCourse)
     .put(jwtMiddleware, verifyInstructor, updateCourse)
     .patch(updateCourseStatus);
-    router.route("/course").get(getAllCourses).put(changeCourseStatus)
+    router.route("/course").get(getAllCourses).patch(changeCourseStatus)
     router.route("/publishedcourses").get(getPublishedCourses);
     router.route("/mycourse/:id").get(myCourse)
   return router;
