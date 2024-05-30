@@ -7,6 +7,7 @@ import {
   IGetAllCoursesUseCase,
   IGetPublishedCoursesUseCase,
   IGetCourseUseCase,
+  IUpdateCourseStatusUseCase
 } from "@/domain/useCases";
 import { IDependencies } from "./IDependencies";
 
@@ -29,4 +30,5 @@ export interface IUseCases {
     dependencies: IDependencies
   ) => IGetPublishedCoursesUseCase;
   getCourseUseCase: (dependencies: IDependencies) => IGetCourseUseCase;
+  updateCourseStatusUseCase:(dependencies:IDependencies)=>IUpdateCourseStatusUseCase;
 }

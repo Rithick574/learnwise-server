@@ -19,6 +19,7 @@ export const routes = (dependencies: IDependencies) => {
     getCourse,
     updateCourse,
     changeCourseStatus,
+    updateCourseStatus
   } = controllers(dependencies);
 
   // category
@@ -40,8 +41,9 @@ export const routes = (dependencies: IDependencies) => {
     router
     .route("/course/:id")
     .get(getCourse)
-    .put(jwtMiddleware, verifyInstructor, updateCourse);
-    router.route("/course").get(getAllCourses).put(changeCourseStatus);
+    .put(jwtMiddleware, verifyInstructor, updateCourse)
+    .patch(updateCourseStatus);
+    router.route("/course").get(getAllCourses).put(changeCourseStatus)
     router.route("/publishedcourses").get(getPublishedCourses);
 
   return router;

@@ -17,7 +17,8 @@ import {
   getPublishedCoursesController,
   updateCourseController,
   getCourseController,
-  courseManagementController
+  courseManagementController,
+  updateCourseStatusController
 } from "@/presentation/controllers/course";
 
 export const controllers = (dependencies: IDependencies) => {
@@ -33,6 +34,7 @@ export const controllers = (dependencies: IDependencies) => {
     getPublishedCourses: getPublishedCoursesController(dependencies),
     getCourse: getCourseController(dependencies),
     updateCourse: updateCourseController(dependencies),
-    changeCourseStatus:courseManagementController(dependencies)
+    changeCourseStatus:courseManagementController(dependencies),
+    updateCourseStatus:updateCourseStatusController(dependencies)
   };
 };
