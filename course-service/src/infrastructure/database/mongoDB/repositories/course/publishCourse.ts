@@ -8,7 +8,7 @@ export const publishCourse = async (
 ): Promise<CourseEntity | null> => {
 try {
     let isPublished;
-    if (action === "publish") {
+    if (action === "active") {
         isPublished = true;
     } else if (action === "unpublish") {
         isPublished = false;
