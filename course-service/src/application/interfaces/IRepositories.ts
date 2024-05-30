@@ -12,4 +12,5 @@ export interface IRepositories {
     getPublishedAndUnblocked:()=>Promise<CourseEntity[] | null >;
     getCourse:(id:string)=>Promise<CourseEntity | null>;
     updateCourseStatus:(id:string,status:string)=>Promise<CourseEntity | null>
+    getInstructorCourse:(id:string)=>Promise<CourseEntity[]| null >
 }
