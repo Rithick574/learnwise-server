@@ -13,4 +13,5 @@ export interface IRepositories {
     getCourse:(id:string)=>Promise<CourseEntity | null>;
     updateCourseStatus:(id:string,status:string)=>Promise<CourseEntity | null>
     getInstructorCourse:(id:string)=>Promise<CourseEntity[]| null >
+    publishCourse:(id:string,action:string)=>Promise<CourseEntity | null>
 }
