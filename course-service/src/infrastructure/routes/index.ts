@@ -19,7 +19,8 @@ export const routes = (dependencies: IDependencies) => {
     getCourse,
     updateCourse,
     changeCourseStatus,
-    updateCourseStatus
+    updateCourseStatus,
+    myCourse
   } = controllers(dependencies);
 
   // category
@@ -45,6 +46,6 @@ export const routes = (dependencies: IDependencies) => {
     .patch(updateCourseStatus);
     router.route("/course").get(getAllCourses).put(changeCourseStatus)
     router.route("/publishedcourses").get(getPublishedCourses);
-
+    router.route("/mycourse/:id").get(myCourse)
   return router;
 };
