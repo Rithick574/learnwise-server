@@ -1,7 +1,7 @@
 import { Kafka, Producer, Consumer } from "kafkajs";
 
 const kafka = new Kafka({
-  clientId: "auth-service",
+  clientId: "payment-service",
   brokers: ["localhost:29092"],
 });
 
