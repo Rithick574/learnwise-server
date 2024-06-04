@@ -1,10 +1,11 @@
 import database from "@/_boot/config";
 import server from  "@/presentation"
+import {runConsumer,stopConsumer} from "@/_boot/consumer"
 
 (async () => {
   try {
     server;
-    await Promise.all([database()])
+    await Promise.all([database(),runConsumer()])
       .then(() => console.log("kafka consumer is runnnig"))
       .catch((error) => {
         console.error(`Error while initializing Kafka consumer: ${error}`);
@@ -12,14 +13,15 @@ import server from  "@/presentation"
       });
     process.on("SIGTERM", async () => {
       console.info("SIGTERM received");
-      // stopConsumer();
+      await stopConsumer();
+      process.exit(0);
     });
-  } catch (error: any) {
-    console.log("Error on start up: ", error);
+  } catch (error) {
+    console.log("Error on start up: ", error as Error);
   } finally {
     process.on("SIGINT", async () => {
       console.log("\n Server is shutting down...");
-      process.exit();
+      process.exit(1);
     });
   }
 })();
