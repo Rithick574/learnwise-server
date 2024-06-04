@@ -7,7 +7,6 @@ export interface IPaymentEntity {
   method: string;
   status: "pending" | "completed" | "failed";
   amount: number;
-  sessionId: string;
   createdAt?:Date;
   updatedAt?:Date;
 }

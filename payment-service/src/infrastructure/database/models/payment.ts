@@ -23,10 +23,6 @@ const paymentSchema = new Schema(
       type: Number,
       required: true,
     },
-    sessionId: {
-      type: String,
-      required: true,
-    },
   },
   { timestamps: true }
 );
