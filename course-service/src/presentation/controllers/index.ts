@@ -19,8 +19,17 @@ import {
   getCourseController,
   courseManagementController,
   updateCourseStatusController,
-  instructorCourseController
+  instructorCourseController,
 } from "@/presentation/controllers/course";
+
+//enrollment
+import { getEnrolledController } from "@/presentation/controllers/enrollment";
+
+//review
+import {
+  createReviewController,
+  getReviewsController,
+} from "@/presentation/controllers/reviews";
 
 export const controllers = (dependencies: IDependencies) => {
   return {
@@ -35,8 +44,11 @@ export const controllers = (dependencies: IDependencies) => {
     getPublishedCourses: getPublishedCoursesController(dependencies),
     getCourse: getCourseController(dependencies),
     updateCourse: updateCourseController(dependencies),
-    changeCourseStatus:courseManagementController(dependencies),
-    updateCourseStatus:updateCourseStatusController(dependencies),
-    myCourse:instructorCourseController(dependencies)
+    changeCourseStatus: courseManagementController(dependencies),
+    updateCourseStatus: updateCourseStatusController(dependencies),
+    myCourse: instructorCourseController(dependencies),
+    getEnrollment: getEnrolledController(dependencies),
+    createReview: createReviewController(dependencies),
+    getReview: getReviewsController(dependencies),
   };
 };

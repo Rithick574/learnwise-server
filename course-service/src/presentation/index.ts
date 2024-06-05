@@ -5,6 +5,8 @@ dotenv.config();
 import {errorHandler} from "@learnwise/common"
 import {routes} from "@/infrastructure/routes"
 import { dependencies } from "@/_boot/dependencies";
+import mongoSanitize from "express-mongo-sanitize"
+import helmet from "helmet";
 
 
 const app: Application = express();
@@ -13,6 +15,8 @@ const PORT: number = Number(process.env.PORT) || 4004;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(mongoSanitize());
+app.use(helmet());
 
 
 app.use("/",routes(dependencies));

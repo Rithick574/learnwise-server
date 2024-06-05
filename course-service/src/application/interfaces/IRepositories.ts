@@ -1,5 +1,7 @@
+import { EnrollmentEntity } from "@/domain/entities";
 import { CourseEntity } from "@/domain/entities/CourseEntity";
 import { CategoryEntity } from "@/domain/entities/categoryEntity";
+import { IReview } from "@/domain/entities/reviewEntity";
 
 
 export interface IRepositories {
@@ -11,7 +13,10 @@ export interface IRepositories {
     courseRepository:(filter: any, page: number, limit: number)=>Promise<CourseEntity[] | null>;
     getPublishedAndUnblocked:()=>Promise<CourseEntity[] | null >;
     getCourse:(id:string)=>Promise<CourseEntity | null>;
-    updateCourseStatus:(id:string,status:string)=>Promise<CourseEntity | null>
-    getInstructorCourse:(id:string)=>Promise<CourseEntity[]| null >
-    publishCourse:(id:string,action:string)=>Promise<CourseEntity | null>
+    updateCourseStatus:(id:string,status:string)=>Promise<CourseEntity | null>;
+    getInstructorCourse:(id:string)=>Promise<CourseEntity[]| null >;
+    publishCourse:(id:string,action:string)=>Promise<CourseEntity | null>;
+    getEnrollment:(courseId:string,userId:string)=>Promise<EnrollmentEntity | null | boolean>;
+    createReview:(data:IReview)=>Promise<IReview | boolean>;
+    getReview:(courseId:string)=>Promise<IReview[] | boolean>;
 }
