@@ -6,6 +6,7 @@ const reviewSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       required: true,
+      ref: "users",
     },
     courseId: {
       type: Schema.Types.ObjectId,

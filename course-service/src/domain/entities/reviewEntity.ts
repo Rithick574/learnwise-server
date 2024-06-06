@@ -4,6 +4,6 @@ export interface IReview extends Document {
     userId: string;
     courseId: string;
     rating?: number;
-    text?: string;
+    comment?: string;
     date?: Date;
   }

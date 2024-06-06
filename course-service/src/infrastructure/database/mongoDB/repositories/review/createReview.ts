@@ -5,7 +5,10 @@ export const createReview = async (
   data: IReview
 ): Promise<IReview | boolean> => {
   try {
-    const review = await Review.create(data);
+    const review = (await Review.create(data)).populate(
+      "userId",
+      "firstName lastName profile.avatar"
+    );
 
     if (!review) {
       return false;
