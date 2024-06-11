@@ -8,6 +8,20 @@ export const runConsumer = async () => {
       topic: "course-service-topic",
       fromBeginning: true,
     });
+    await consumer.subscribe({
+      topic: "user-service-topic",
+      fromBeginning: true,
+    });
+
+    await consumer.subscribe({
+      topic: "user-status-update",
+      fromBeginning: true,
+    });
+
+    await consumer.subscribe({
+      topic: "user-profile-update",
+      fromBeginning: true,
+    });
     const subscriber = createSubscriber();
     await consumer.run({
       eachMessage: async ({ message }) => {
