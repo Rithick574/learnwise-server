@@ -36,7 +36,7 @@ export class ProducerService implements OnModuleInit, OnApplicationShutdown {
 
   async produce(record: ProducerRecord) {
     try {
-      await this.producer.send(record);
+      await this.producer.sendBatch(record);
       this.logger.log(`Message sent to ${record.topic}`);
     } catch (error) {
       this.logger.error(`Failed to send message to ${record.topic}:`, error);
