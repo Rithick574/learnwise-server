@@ -23,7 +23,8 @@ export const routes = (dependencies: IDependencies) => {
     myCourse,
     getEnrollment,
     createReview,
-    getReview
+    getReview,
+    myStucents
   } = controllers(dependencies);
 
   // category
@@ -53,6 +54,7 @@ export const routes = (dependencies: IDependencies) => {
 
    //enrollment
     router.route("/enrollment") .get(getEnrollment);
+    router.route('/mystudents/:id').get(myStucents)
 
    //review
    router.route('/review').post(createReview)
