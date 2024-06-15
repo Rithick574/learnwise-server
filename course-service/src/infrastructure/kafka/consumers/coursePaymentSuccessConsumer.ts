@@ -12,6 +12,7 @@ export default async (data: any) => {
         await createEnrollment({
             userId: data.userId,
             courseId: data.courseId,
+            instructorRef:data.instructorRef,
             enrolledAt: Date.now().toString()
         });
 

@@ -23,6 +23,11 @@ const enrollmentSchema = new Schema({
         ref: "courses",
         required: true
     },
+    instructorRef: {
+        type: Schema.Types.ObjectId,
+        ref: "users",
+        required: true,
+    },
     enrolledAt: {
         type: Schema.Types.Date,
         default: function () {

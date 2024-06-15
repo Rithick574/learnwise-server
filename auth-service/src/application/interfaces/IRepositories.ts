@@ -7,4 +7,5 @@ export interface IRepositories{
     findById: (id: string) => Promise<UserEntity | null>;
     verifyOtp:(email:string,otp:string)=>Promise<Boolean | null>
     updateUserPassword: (data: {email: string, password: string}) => Promise<UserEntity | null>;
+    getAllUser: ()=> Promise<boolean | UserEntity[] >;
 }

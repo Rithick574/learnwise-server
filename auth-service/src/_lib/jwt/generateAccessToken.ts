@@ -5,7 +5,6 @@ export const generateAccessToken = (payload: {
     email: string,
     role: string
 }) => {
-    console.log("🚀 ~ file: generateAccessToken.ts:8 ~ payload:", payload)
     const secret = process.env.ACCESS_TOKEN_SECRET;
     if (!secret) {
         throw new Error("Access token secret is not defined!");

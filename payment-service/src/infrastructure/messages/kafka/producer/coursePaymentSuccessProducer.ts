@@ -4,9 +4,10 @@ export default async (data: {
   userId: string;
   courseId: string;
   amount: number;
+  instructorRef:string;
 }) => {
   try {
-    const { userId, courseId, amount } = data;
+    const { userId, courseId, amount, instructorRef } = data;
 
     await producer.connect();
 
@@ -20,6 +21,7 @@ export default async (data: {
               userId: userId,
               courseId: courseId,
               amount: amount,
+              instructorRef: instructorRef
             }),
           },
         ],

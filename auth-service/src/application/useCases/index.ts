@@ -4,4 +4,4 @@ export * from "./loginUserUseCase"
 export * from "./findUserByIdUseCase"
 export * from "./verifyOtpUseCase"
 export * from "./updateUserPasswordUseCase"
-
+export * from "./getAllUsersUseCase"

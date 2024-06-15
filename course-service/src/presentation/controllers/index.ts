@@ -23,7 +23,7 @@ import {
 } from "@/presentation/controllers/course";
 
 //enrollment
-import { getEnrolledController,myStudentsController } from "@/presentation/controllers/enrollment";
+import { getEnrolledController,myStudentsController,adminDashboard,salesReportController } from "@/presentation/controllers/enrollment";
 
 //review
 import {
@@ -51,5 +51,7 @@ export const controllers = (dependencies: IDependencies) => {
     createReview: createReviewController(dependencies),
     getReview: getReviewsController(dependencies),
     myStucents:myStudentsController(dependencies),
+    adminDash:adminDashboard(dependencies),
+    salesreport:salesReportController(dependencies)
   };
 };

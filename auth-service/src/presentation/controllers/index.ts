@@ -6,6 +6,7 @@ import {logoutController} from "./logout"
 import {googleAuthController} from "./googleAuth"
 import {forgotPasswordController} from "./forgotPassword"
 import {updatePasswordController} from "./updatePassword"
+import {getAllUsersController} from "./getAllUsersController"
 
 
 
@@ -17,6 +18,7 @@ export const controllers = (dependencies: IDependencies) => {
         logout: logoutController(dependencies),
         googleAuth: googleAuthController(dependencies),
         forgotPassword: forgotPasswordController(dependencies),
-        updatePassword: updatePasswordController(dependencies)
+        updatePassword: updatePasswordController(dependencies),
+        getAllUsers: getAllUsersController(dependencies)
     }
 }

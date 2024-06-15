@@ -19,5 +19,8 @@ export interface IRepositories {
     getEnrollment:(courseId:string,userId:string)=>Promise<EnrollmentEntity | null | boolean>;
     createReview:(data:IReview)=>Promise<IReview | boolean>;
     getReview:(courseId:string)=>Promise<IReview[] | boolean>;
-    myStudents:(id:string)=>Promise<EnrollmentEntity[] | boolean>
+    myStudents:(id:string,filter: any, page: number, limit: number)=>Promise<EnrollmentEntity[] | boolean>
+    adminDashboard:()=>Promise<any | boolean>;
+    getTopCourse:()=>Promise<any | boolean>; 
+    salesReport:(startDate:string,endDate:string)=>Promise<any | boolean>;
 }

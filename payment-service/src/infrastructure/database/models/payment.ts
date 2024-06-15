@@ -10,6 +10,10 @@ const paymentSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
+    instructorRef:{
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
     method: {
       type: String,
       required: true,

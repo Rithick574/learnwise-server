@@ -10,6 +10,7 @@ export interface EnrollmentEntity {
     userId: Types.ObjectId;
     courseId: Types.ObjectId;
     enrolledAt?: Date | string;
+    instructorRef?:Types.ObjectId;
     progress?: {
         completedLessons?: Types.ObjectId[] | [] | null;
         completedAssessments?: Types.ObjectId[] | [] | null;

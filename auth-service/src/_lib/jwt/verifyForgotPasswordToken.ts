@@ -9,7 +9,6 @@ export const verifyForgetPasswordToken = (token: string): Promise<any> => {
                 if (error) {
                     reject(new Error(error.message));
                 } else {
-                    console.log("🚀 ~ file: verifyForgotPasswordToken.ts ~ decoded:", decoded);
                     resolve(decoded);
                 }
             }

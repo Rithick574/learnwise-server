@@ -1,2 +1,5 @@
 export * from "./IGetEnrollmentUseCase"
 export * from "./IMyStudentsUseCase"
+export * from "./IAdminDashboardUseCase"
+export * from "./IGetTopCourseUseCase"
+export * from "./ISalesReportUseCase"

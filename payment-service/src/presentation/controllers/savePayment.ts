@@ -16,11 +16,12 @@ export const savePaymentController = (dependencies: IDependencies) => {
               return next(ErrorResponse.paymentRequired("Payment failed. Please try again"));
             }
             if (response.status === "completed") {
-              if (response.userId && response.courseId) {
+              if (response.userId && response.courseId && response.instructorRef) {
                 await coursePaymentSuccessProducer({
                   userId: response.userId.toString(),
                   courseId: response.courseId.toString(),
                   amount: response.amount,
+                  instructorRef:response.instructorRef.toString()
                 });
               } else {
                 return next(ErrorResponse.internalError("Payment data is incomplete"));

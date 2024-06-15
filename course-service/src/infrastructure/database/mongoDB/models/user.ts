@@ -73,4 +73,4 @@ const userSchema = new Schema({
 });
 
 
-export const User = model<UserEntity>("users", userSchema);
+export const User = model<UserEntity>("users", userSchema); 
