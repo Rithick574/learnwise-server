@@ -23,4 +23,8 @@ export interface IRepositories {
     adminDashboard:()=>Promise<any | boolean>;
     getTopCourse:()=>Promise<any | boolean>; 
     salesReport:(startDate:string,endDate:string)=>Promise<any | boolean>;
+    getEnrollmentsForInstructorOverTime:(instructorRef:string)=>Promise<any | boolean>;
+    getTopCoursesForInstructor:(instructorRef:string)=>Promise<any | boolean>;
+    getTotalStudentsForInstructor:(instructorRef:string)=>Promise<any | boolean>;
+    getTotalCoursesForInstructor:(instructorRef:string)=>Promise<any | boolean>;
 }

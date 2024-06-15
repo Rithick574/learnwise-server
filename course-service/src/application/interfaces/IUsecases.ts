@@ -16,7 +16,11 @@ import {
   IMyStudentsUseCase,
   IAdminDashboardUseCase,
   IGetTopCourseUseCase,
-  ISalesReportUseCase
+  ISalesReportUseCase,
+  IGetEnrollmentsForInstructorOverTimeUseCase,
+  IGetTopCoursesForInstructorUseCase,
+  IGetTotalStudentsForInstructorUseCase,
+  IGetTotalCoursesForInstructorUseCase
 } from "@/domain/useCases";
 import { IDependencies } from "./IDependencies";
 
@@ -55,4 +59,8 @@ export interface IUseCases {
   adminDashboardUseCase:(dependencies:IDependencies)=>IAdminDashboardUseCase;
   getTopCourseUseCase:(dependencies:IDependencies)=> IGetTopCourseUseCase;
   salesReportUseCase:(dependencies:IDependencies)=> ISalesReportUseCase;
+  getEnrollmentsForInstructorOverTimeUseCase:(dependencies:IDependencies)=>IGetEnrollmentsForInstructorOverTimeUseCase;
+  getTopCoursesForInstructorUseCase:(dependencies:IDependencies)=> IGetTopCoursesForInstructorUseCase;
+  getTotalStudentsForInstructorUseCase:(dependencies:IDependencies)=> IGetTotalStudentsForInstructorUseCase;
+  getTotalCoursesForInstructorUseCase:(dependencies:IDependencies)=> IGetTotalCoursesForInstructorUseCase
 }
