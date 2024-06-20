@@ -13,10 +13,6 @@ export const signupController = (dependencies: IDependencies) => {
 
   return async (req: Request, res: Response, next: NextFunction) => {
     const userCredentials = req.body;
-    console.log(
-      "🚀 ~ file: signup.ts:15 ~ return ~ userCredentials:",
-      userCredentials
-    );
 
     //To check whether the user email is taken or not
     if (!userCredentials.otp) {
@@ -24,7 +20,6 @@ export const signupController = (dependencies: IDependencies) => {
         const userExist: any = await findUserByEmailUseCase(
           dependencies
         ).execute(userCredentials.email);
-        console.log("🚀 ~ file: signup.ts:28 ~ return ~ userExist:", userExist);
         if (userExist) {
           return next(
             ErrorResponse.conflict(

@@ -27,7 +27,11 @@ export const routes = (dependencies: IDependencies) => {
     myStucents,
     adminDash,
     salesreport,
-    instructorDash
+    instructorDash,
+    payments,
+    editCourses,
+    createExam,
+    getEexam
   } = controllers(dependencies);
 
   // category
@@ -54,6 +58,11 @@ export const routes = (dependencies: IDependencies) => {
     router.route("/course").get(getAllCourses).patch(changeCourseStatus)
     router.route("/publishedcourses").get(getPublishedCourses);
     router.route("/mycourse/:id").get(myCourse)
+    router.route("/course/update/:courseId").put(editCourses)
+
+
+  //exam
+  router.route("/exam/:courseId").post(createExam).get(getEexam);
 
    //enrollment
     router.route("/enrollment") .get(getEnrollment);
@@ -65,6 +74,9 @@ export const routes = (dependencies: IDependencies) => {
    //review
    router.route('/review').post(createReview)
    router.route('/review/:id').get(getReview)
+
+   //payments
+   router.route('/payments').get(payments)
    
   return router;
 };

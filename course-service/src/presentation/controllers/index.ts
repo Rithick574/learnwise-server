@@ -20,6 +20,7 @@ import {
   courseManagementController,
   updateCourseStatusController,
   instructorCourseController,
+  editCourseController,
 } from "@/presentation/controllers/course";
 
 //enrollment
@@ -29,6 +30,7 @@ import {
   adminDashboard,
   salesReportController,
   instructorDashboardController,
+  adminPaymentController
 } from "@/presentation/controllers/enrollment";
 
 //review
@@ -36,6 +38,8 @@ import {
   createReviewController,
   getReviewsController,
 } from "@/presentation/controllers/reviews";
+
+import {createExamController, getExamController} from "@/presentation/controllers/exam";
 
 export const controllers = (dependencies: IDependencies) => {
   return {
@@ -60,5 +64,9 @@ export const controllers = (dependencies: IDependencies) => {
     adminDash: adminDashboard(dependencies),
     salesreport: salesReportController(dependencies),
     instructorDash: instructorDashboardController(dependencies),
+    payments:adminPaymentController(dependencies),
+    editCourses:editCourseController(dependencies),
+    createExam:createExamController(dependencies),
+    getEexam:getExamController(dependencies)
   };
 };

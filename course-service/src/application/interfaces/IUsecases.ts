@@ -20,9 +20,12 @@ import {
   IGetEnrollmentsForInstructorOverTimeUseCase,
   IGetTopCoursesForInstructorUseCase,
   IGetTotalStudentsForInstructorUseCase,
-  IGetTotalCoursesForInstructorUseCase
+  IGetTotalCoursesForInstructorUseCase,
+  IPaymentListUseCase,
+  IEditCourseUseCase
 } from "@/domain/useCases";
 import { IDependencies } from "./IDependencies";
+import { ICreateExamUseCase, IGetExamUseCase } from "@/domain/useCases/exams";
 
 export interface IUseCases {
   getAllCategoriesUseCase: (
@@ -62,5 +65,9 @@ export interface IUseCases {
   getEnrollmentsForInstructorOverTimeUseCase:(dependencies:IDependencies)=>IGetEnrollmentsForInstructorOverTimeUseCase;
   getTopCoursesForInstructorUseCase:(dependencies:IDependencies)=> IGetTopCoursesForInstructorUseCase;
   getTotalStudentsForInstructorUseCase:(dependencies:IDependencies)=> IGetTotalStudentsForInstructorUseCase;
-  getTotalCoursesForInstructorUseCase:(dependencies:IDependencies)=> IGetTotalCoursesForInstructorUseCase
+  getTotalCoursesForInstructorUseCase:(dependencies:IDependencies)=> IGetTotalCoursesForInstructorUseCase;
+  paymentListUseCase:(dependencies:IDependencies)=>IPaymentListUseCase;
+  editCourseUseCase:(dependencies:IDependencies)=>IEditCourseUseCase;
+  createExamUseCase:(dependencies:IDependencies) => ICreateExamUseCase;
+  getExamUseCase:(dependencies:IDependencies) => IGetExamUseCase;
 }
