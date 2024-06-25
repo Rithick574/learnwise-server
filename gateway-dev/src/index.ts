@@ -31,7 +31,8 @@ const services = {
   user: process.env.USER_SERVICE,
   notification: process.env.NOTIFICATION_SERVICE,
   course:process.env.COURSE_SERVICE,
-  payment:process.env.PAYMENT_SERVICE
+  payment:process.env.PAYMENT_SERVICE,
+  chat:process.env.CHAT_SERVICE
 };
 
 const routes = [
@@ -58,6 +59,11 @@ const routes = [
   {
     context:"/api/payment",
     target:services.payment,
+    changeOrigin:true
+  },
+  {
+    context:"/api/chat",
+    target:services.chat,
     changeOrigin:true
   }
 ];
