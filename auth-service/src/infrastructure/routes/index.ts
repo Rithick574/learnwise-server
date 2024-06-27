@@ -4,7 +4,7 @@ import { IDependencies } from "@/application/interfaces/IDependencies";
 import { jwtMiddleware } from "@/_lib/common";
 
 export const routes = (dependencies: IDependencies) => {
-  const { signup, login, getUser, logout, googleAuth,forgotPassword,updatePassword,getAllUsers } =
+  const { signup, login, getUser, logout, googleAuth,forgotPassword,updatePassword,getAllUsers,findUserByEmail } =
     controllers(dependencies);
 
   const router = Router();
@@ -17,6 +17,7 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/forgotpassword").post(forgotPassword);
   router.route("/reset-password").post(updatePassword);
   router.route("/getallusers").get(getAllUsers);
+  router.route("/find/:email").get(findUserByEmail)
 
   return router;
 };

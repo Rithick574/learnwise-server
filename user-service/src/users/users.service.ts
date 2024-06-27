@@ -281,4 +281,18 @@ export class UsersService {
   };
   await this.producerService.produce(kafkaRecord);
   }
+
+  async getInstructorById(email: string): Promise<InstructorApplication | null> {
+    try {
+      const instructorData = await this.instructorModel.findOne({email});
+      if (!instructorData) {
+        throw new HttpException('Instructor not found', HttpStatus.NOT_FOUND);
+      }
+      return instructorData;
+    } catch (error) {
+      console.error(error);
+      throw new HttpException('Failed to find instructor', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  
 }

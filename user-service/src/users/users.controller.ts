@@ -192,5 +192,25 @@ async instructorApplicationAccept(@Res() res: Response, @Body() body: { id: stri
       });
     }
   }
+  @Get('instructor/:email')
+  async getInstructorById(@Param('email') email: string, @Res() res): Promise<void> {
+    try {
+      const instructor = await this.userService.getInstructorById(email);
+      console.log("🚀 ~ file: users.controller.ts:199 ~ UsersController ~ getInstructorById ~ id:", email)
+      console.log("🚀 ~ file: users.controller.ts:199 ~ UsersController ~ getInstructorById ~ instructor:", instructor)
+      return res.status(HttpStatus.OK).json({
+        success: true,
+        data: instructor,
+        message: 'Instructor data'
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: 'Failed to fetch instructor application'
+      });
+    }
+  }
+  
 }
 

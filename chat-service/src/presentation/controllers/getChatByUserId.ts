@@ -1,4 +1,5 @@
 import { IDependencies } from "@/application/interfaces/IDependencies";
+import { ErrorResponse } from "@learnwise/common";
 import { NextFunction, Request, Response } from "express";
 
 export const getChatByUserId = (dependencies: IDependencies) => {
@@ -7,21 +8,23 @@ export const getChatByUserId = (dependencies: IDependencies) => {
   } = dependencies;
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    try {
+    try {      
       const userId = req.params.id;
-      console.log(userId);
-
       const result = await findChatByUserIdUseCase(dependencies).execute(
         userId
       );
+      
       if (!result) {
-        throw new Error("Can't find any chat by this user");
+        return next(ErrorResponse.badRequest("Can't find any chat by this user"))
       }
       res.status(201).json({
         success: true,
         data: result,
         message: "chats found",
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log("🚀 ~ file: getChatByUserId.ts:28 ~ return ~ error:", error)
+      next(error)
+    }
   };
 };

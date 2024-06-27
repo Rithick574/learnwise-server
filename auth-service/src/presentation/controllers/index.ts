@@ -7,6 +7,7 @@ import {googleAuthController} from "./googleAuth"
 import {forgotPasswordController} from "./forgotPassword"
 import {updatePasswordController} from "./updatePassword"
 import {getAllUsersController} from "./getAllUsersController"
+import {findByEmailController} from "./findByEmailController"
 
 
 
@@ -19,6 +20,7 @@ export const controllers = (dependencies: IDependencies) => {
         googleAuth: googleAuthController(dependencies),
         forgotPassword: forgotPasswordController(dependencies),
         updatePassword: updatePasswordController(dependencies),
-        getAllUsers: getAllUsersController(dependencies)
+        getAllUsers: getAllUsersController(dependencies),
+        findUserByEmail:findByEmailController(dependencies)
     }
 }
