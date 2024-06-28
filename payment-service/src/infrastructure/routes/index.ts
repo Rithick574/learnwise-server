@@ -1,17 +1,21 @@
-import { Router } from "express";
+import express,{ Router } from "express";
 import { controllers } from "@/presentation/controllers";
 import { IDependencies } from "@/application/interfaces/IDependencies";
-import {jwtMiddleware} from '@learnwise/common'
 
 export const routes = (dependencies: IDependencies) => {
 
-const {createCheckoutSession,savePayment} =controllers(dependencies)
+const {createCheckoutSession,savePayment,getsubscriptionData,webhook,createSessionSubscription} =controllers(dependencies)
 
     const router = Router();
 
+    //payment
     router.route("/create-checkout-session").post(createCheckoutSession);
-
     router.route("/savePayment").post(savePayment);
+
+    //subscription
+    router.route("/subscription/:userId/:instructorId").get(getsubscriptionData);
+    router.post("/webhook", express.raw({ type: 'application/json' }), webhook);
+    router.route("/subscription/create-subscription-checkout-session").post(createSessionSubscription)
 
     return router;
 }

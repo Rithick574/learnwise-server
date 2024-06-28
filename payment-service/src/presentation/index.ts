@@ -5,15 +5,23 @@ dotenv.config();
 import {routes} from "@/infrastructure/routes"
 import {errorHandler} from '@learnwise/common'
 import { dependencies } from "@/_boot/dependencies";
+import morgan from "morgan";
 
 
 const app: Application = express();
-const PORT: number = Number(process.env.PORT) || 4001;
+const PORT: number = Number(process.env.PORT) || 4005;
 
 
-app.use(express.json());
+app.use((req, res, next) => {
+  if (req.originalUrl === '/webhook') {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(morgan("dev"));
 
 
 app.use("/",routes(dependencies))

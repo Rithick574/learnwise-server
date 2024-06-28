@@ -36,7 +36,6 @@ export const createCheckoutSessionController = (dependencies: IDependencies)=>{
               res.status(200).json({ success: true, id: session.id ,message:"payment response"});
 
         } catch (error) {
-          console.log("🚀 ~ file: createCheckoutSession.ts:41 ~ return ~ error:", error)
             next(error)
         }
     }
