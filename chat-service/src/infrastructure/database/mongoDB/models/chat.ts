@@ -24,9 +24,13 @@ const chatSchema = new Schema({
     groupId:{
         type:String
     },
-    lastSeen:{
-        type:Date
-    },
+    lastSeen: [
+        {
+          participant: { type: Schema.Types.ObjectId, ref: 'users' },
+          seenAt: { type: Date ,default:Date.now}
+          
+        }
+      ],
     groupDescription: {
         type: String
     },

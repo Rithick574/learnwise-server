@@ -3,7 +3,7 @@ import { controllers } from "@/presentation/controllers";
 import { Router } from "express";
 
 export const router = (dependencies: IDependencies) => {
-  const { createChat, createMessage, getChatByUserId, getChat } =
+  const { createChat, createMessage, getChatByUserId, getChat,findNotification } =
     controllers(dependencies);
     
   const router = Router();
@@ -14,6 +14,9 @@ export const router = (dependencies: IDependencies) => {
   router.route("/message").post(createMessage);
 
   router.route("/chats/:id").get(getChatByUserId);
+
+  router.route('/notification/:id')
+  .get(findNotification)
 
   return router;
 };

@@ -1,9 +1,7 @@
 import { ChatEntity } from "@/domain/entities";
 import { Chat } from "../../models/chat";
 
-export const findChatById = async (
-  chatId: string
-): Promise<ChatEntity | null> => {
+export const findChatById = async (chatId: string): Promise<ChatEntity | null> => {
   try {
     const chat = await Chat.findById(chatId).populate({
       path: "messages",
@@ -11,7 +9,7 @@ export const findChatById = async (
         path: "sender",
         select: "userName profileImageUrl",
       },
-    });
+    }) as ChatEntity | null;
 
     if (!chat) {
       throw new Error("Chat not found");

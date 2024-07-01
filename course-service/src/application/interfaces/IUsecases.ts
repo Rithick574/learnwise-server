@@ -22,10 +22,12 @@ import {
   IGetTotalStudentsForInstructorUseCase,
   IGetTotalCoursesForInstructorUseCase,
   IPaymentListUseCase,
-  IEditCourseUseCase
+  IEditCourseUseCase,
+  IEnrollmentProgressUseCase,
+  IGetEnrollmentByUserIdUseCase
 } from "@/domain/useCases";
 import { IDependencies } from "./IDependencies";
-import { ICreateExamUseCase, IGetExamUseCase } from "@/domain/useCases/exams";
+import { ICreateExamUseCase, IGetExamUseCase, ISubmitExamUseCase } from "@/domain/useCases/exams";
 
 export interface IUseCases {
   getAllCategoriesUseCase: (
@@ -70,4 +72,7 @@ export interface IUseCases {
   editCourseUseCase:(dependencies:IDependencies)=>IEditCourseUseCase;
   createExamUseCase:(dependencies:IDependencies) => ICreateExamUseCase;
   getExamUseCase:(dependencies:IDependencies) => IGetExamUseCase;
+  submitExamUseCase:(dependencies:IDependencies)=> ISubmitExamUseCase;
+  enrollmentProgressUseCase:(dependencies:IDependencies)=>IEnrollmentProgressUseCase;
+  getEnrollmentByUserIdUseCase:(dependencies:IDependencies)=>IGetEnrollmentByUserIdUseCase;
 }

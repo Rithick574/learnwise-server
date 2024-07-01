@@ -1,4 +1,4 @@
-import { ICreateChatUseCase, ICreateMessageUseCase, IfindChatByUseCase, IfindChatByUserIdUseCase, IfindGroupByUserUseCase } from "@/domain/useCases";
+import { ICreateChatUseCase, ICreateMessageUseCase, IFindNotificationUseCase, IfindChatByUseCase, IfindChatByUserIdUseCase, IfindGroupByUserUseCase } from "@/domain/useCases";
 import { IDependencies } from "./IDependencies";
 
 export interface IUseCases{
@@ -7,4 +7,5 @@ export interface IUseCases{
     findGroupByUserId:(dependencies:IDependencies)=>IfindGroupByUserUseCase;
     findchatByIdUseCase:(dependencies:IDependencies)=>IfindChatByUseCase;
     findChatByUserIdUseCase:(dependencies:IDependencies)=>IfindChatByUserIdUseCase;
+    findNotificationUseCase:(dependencies:IDependencies)=>IFindNotificationUseCase;
 }

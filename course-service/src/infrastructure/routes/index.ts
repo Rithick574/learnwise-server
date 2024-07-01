@@ -31,7 +31,10 @@ export const routes = (dependencies: IDependencies) => {
     payments,
     editCourses,
     createExam,
-    getEexam
+    getEexam,
+    submitExam,
+    progress,
+    getEnrollmentByUserId
   } = controllers(dependencies);
 
   // category
@@ -50,34 +53,35 @@ export const routes = (dependencies: IDependencies) => {
   router
     .route("/create-course")
     .post(jwtMiddleware, verifyInstructor, createCourse);
-    router
+  router
     .route("/course/:id")
     .get(getCourse)
     .put(jwtMiddleware, verifyInstructor, updateCourse)
     .patch(updateCourseStatus);
-    router.route("/course").get(getAllCourses).patch(changeCourseStatus)
-    router.route("/publishedcourses").get(getPublishedCourses);
-    router.route("/mycourse/:id").get(myCourse)
-    router.route("/course/update/:courseId").put(editCourses)
-
+  router.route("/course").get(getAllCourses).patch(changeCourseStatus);
+  router.route("/publishedcourses").get(getPublishedCourses);
+  router.route("/mycourse/:id").get(myCourse);
+  router.route("/course/update/:courseId").put(editCourses);
 
   //exam
+  router.route("/exam/submit").post(submitExam);
   router.route("/exam/:courseId").post(createExam).get(getEexam);
 
-   //enrollment
-    router.route("/enrollment") .get(getEnrollment);
-    router.route('/mystudents/:id').get(myStucents);
-    router.route("/admindashboard").get(adminDash);
-    router.route("/enrollment/salesreport").get(salesreport);
-    router.route("/instructor/dashboard/:instructorRef").get(instructorDash);
 
-   //review
-   router.route('/review').post(createReview)
-   router.route('/review/:id').get(getReview)
+  //enrollment
+  router.route("/enrollment").get(getEnrollment).put(progress);
+  router.route("/mystudents/:id").get(myStucents);
+  router.route("/admindashboard").get(adminDash);
+  router.route("/enrollment/salesreport").get(salesreport);
+  router.route("/instructor/dashboard/:instructorRef").get(instructorDash);
+  router.route("/enrollment/:userId").get(getEnrollmentByUserId)
 
-   //payments
-   router.route('/payments').get(payments)
-   
+  //review
+  router.route("/review").post(createReview);
+  router.route("/review/:id").get(getReview);
+
+  //payments
+  router.route("/payments").get(payments);
+
   return router;
 };
-

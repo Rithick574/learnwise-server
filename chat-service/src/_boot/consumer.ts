@@ -19,6 +19,10 @@ export const runConsumer = async () => {
       topic: "user-profile-update",
       fromBeginning: true,
     });
+    await consumer.subscribe({
+      topic: "chat-service-topic",
+      fromBeginning: true,
+    });
     const subscriber = createSubscriber();
     await consumer.run({
         eachMessage: async ({ message }: EachMessagePayload) => {

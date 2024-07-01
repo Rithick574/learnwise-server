@@ -1,12 +1,14 @@
 import { ChatEntity } from "@/domain/entities";
 import { Chat } from "../../models/chat";
+import { Types } from "mongoose";
 
-export const findGroupByUserId = async (
-  userId: string
-): Promise<ChatEntity[] | null> => {
+export const findGroupByUserId = async (userId: string): Promise<ChatEntity[] | null> => {
   try {
+  
+    const userObjectId = new Types.ObjectId(userId);
+
     const chats = await Chat.find({
-      participants: userId,
+      participants: userObjectId,
       type: "group",
     }).exec();
 
@@ -14,7 +16,7 @@ export const findGroupByUserId = async (
       throw new Error("No groups found for the user");
     }
 
-    return chats;
+    return chats as ChatEntity[];
   } catch (error: any) {
     throw new Error(error?.message);
   }

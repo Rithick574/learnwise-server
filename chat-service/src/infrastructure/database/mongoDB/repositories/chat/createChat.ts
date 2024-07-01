@@ -4,6 +4,7 @@ import { Chat } from "../../models/chat";
 
 export const createChat = async (data: ChatEntity) => {
     try {
+        console.log("🚀 ~ file: createChat.ts:6 ~ createChat ~ data:", data);
         let chat;
         const participantIds = await Promise.all(
             data.participants.map(async (participant) => {

@@ -30,7 +30,9 @@ import {
   adminDashboard,
   salesReportController,
   instructorDashboardController,
-  adminPaymentController
+  adminPaymentController,
+  enrollmentProgressController,
+  getEnrollmentByUserIdController
 } from "@/presentation/controllers/enrollment";
 
 //review
@@ -39,7 +41,7 @@ import {
   getReviewsController,
 } from "@/presentation/controllers/reviews";
 
-import {createExamController, getExamController} from "@/presentation/controllers/exam";
+import {createExamController, getExamController,submitExamController} from "@/presentation/controllers/exam";
 
 export const controllers = (dependencies: IDependencies) => {
   return {
@@ -67,6 +69,9 @@ export const controllers = (dependencies: IDependencies) => {
     payments:adminPaymentController(dependencies),
     editCourses:editCourseController(dependencies),
     createExam:createExamController(dependencies),
-    getEexam:getExamController(dependencies)
+    getEexam:getExamController(dependencies),
+    submitExam:submitExamController(dependencies),
+    progress:enrollmentProgressController(dependencies),
+    getEnrollmentByUserId:getEnrollmentByUserIdController(dependencies)
   };
 };

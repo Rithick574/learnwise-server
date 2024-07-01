@@ -33,8 +33,8 @@ export const createSubscriptionSessionController = (
         payment_method_types: ["card"],
         line_items: lineItems,
         mode: "payment",
-        success_url: `${process.env.FRONTEND_URL}/student/instructors/subscription/success`,
-        cancel_url: `${process.env.FRONTEND_URL}/student/instructors/subscription/failed`,
+        success_url: `${process.env.FRONTEND_URL}/instructors/subscription/success`,
+        cancel_url: `${process.env.FRONTEND_URL}/instructors/subscription/failed`,
         metadata: {
           instructorId: instructorId.toString(),
           customer_email: email,

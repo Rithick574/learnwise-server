@@ -21,6 +21,13 @@ export default async(data:UserEntity,topic?: string)=>{
                     key: "userCreated",
                     value: JSON.stringify(data)
                 }] 
+            },
+            {
+                topic: "chat-service-topic",
+                messages: [{
+                    key: "userCreated",
+                    value: JSON.stringify(data)
+                }] 
             }
         ]
 

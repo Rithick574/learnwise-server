@@ -1,7 +1,10 @@
-import { EnrollmentEntity } from "@/domain/entities";
-import { CourseEntity } from "@/domain/entities/CourseEntity";
-import { CategoryEntity } from "@/domain/entities/categoryEntity";
-import { IReview } from "@/domain/entities/reviewEntity";
+import {
+  EnrollmentEntity,
+  IExamResult,
+  IReview,
+  CategoryEntity,
+  CourseEntity,
+} from "@/domain/entities";
 
 export interface IRepositories {
   getAllCategories: (
@@ -25,7 +28,10 @@ export interface IRepositories {
     sort: string | undefined,
     page: number,
     limit: number
-  ) => Promise<{ courses: CourseEntity[]; totalAvailableCourses: number } | null>;
+  ) => Promise<{
+    courses: CourseEntity[];
+    totalAvailableCourses: number;
+  } | null>;
   getCourse: (id: string) => Promise<CourseEntity | null>;
   updateCourseStatus: (
     id: string,
@@ -58,8 +64,23 @@ export interface IRepositories {
   getTotalCoursesForInstructor: (
     instructorRef: string
   ) => Promise<any | boolean>;
-  paymentListForAdmin:(status:string,search:string,page:number,limit:number)=>Promise<any | null>
-  editCourse:(courseId:string,data: CourseEntity) => Promise<CourseEntity | boolean>;
-  createExam:(courseId: string, questions: any) => Promise<any | boolean>;
-  getExam:(courseId:string)=> Promise<any | boolean>;
+  paymentListForAdmin: (
+    status: string,
+    search: string,
+    page: number,
+    limit: number
+  ) => Promise<any | null>;
+  editCourse: (
+    courseId: string,
+    data: CourseEntity
+  ) => Promise<CourseEntity | boolean>;
+  createExam: (courseId: string, questions: any) => Promise<any | boolean>;
+  getExam: (courseId: string) => Promise<any | boolean>;
+  submitExam: (
+    userId: string,
+    courseId: string,
+    result: any
+  ) => Promise<IExamResult | boolean>;
+  enrollmentProgress:(progressData:any)=>Promise<EnrollmentEntity | null>
+  getEnrollmentByUserId:(userId:string)=>Promise<any |null>
 }

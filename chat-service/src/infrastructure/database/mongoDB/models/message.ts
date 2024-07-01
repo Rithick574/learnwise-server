@@ -21,7 +21,7 @@ const messageSchema = new Schema({
     },
     contentType: {
         type: String,
-        enum: ['text'],
+        enum: ['text','image','video','audio'],
         default: 'text'
     },
     recieverSeen: {

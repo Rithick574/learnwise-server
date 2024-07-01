@@ -7,6 +7,7 @@ import {routes} from "@/infrastructure/routes"
 import { dependencies } from "@/_boot/dependencies";
 import mongoSanitize from "express-mongo-sanitize"
 import helmet from "helmet";
+import morgan from "morgan";
 
 
 const app: Application = express();
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(mongoSanitize());
 app.use(helmet());
+app.use(morgan("dev"));
 
 
 app.use("/",routes(dependencies));

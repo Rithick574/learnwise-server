@@ -1,9 +1,16 @@
 import { Types } from "mongoose";
 
-interface LessonProgress {
-    lessonId: string;
+interface CompletedLesson {
+    lessonId: Types.ObjectId;
+    subLessonId: Types.ObjectId;
+  }
+
+interface Progress {
+    completedLessons: CompletedLesson[];
+    currentLesson: Types.ObjectId | null;
+    currentSubLesson: Types.ObjectId | null;
     totalTimeWatched: number;
-}
+  }
 
 export interface EnrollmentEntity {
     _id?: Types.ObjectId;
@@ -11,10 +18,5 @@ export interface EnrollmentEntity {
     courseId: Types.ObjectId;
     enrolledAt?: Date | string;
     instructorRef?:Types.ObjectId;
-    progress?: {
-        completedLessons?: Types.ObjectId[] | [] | null;
-        completedAssessments?: Types.ObjectId[] | [] | null;
-        currentLesson?: Types.ObjectId | string;
-        lessonProgress?: LessonProgress[] | null;
-    };
+    progress: Progress;
 };
