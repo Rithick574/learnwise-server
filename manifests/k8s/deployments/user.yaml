@@ -15,7 +15,7 @@ spec:
         app: user-service
     spec:
       containers:
-      - image: nabeelncz/zakaa-user:latest
+      - image: rithickramanthali/learnwise-user:latest
         name: user-service
         envFrom:
           - configMapRef:

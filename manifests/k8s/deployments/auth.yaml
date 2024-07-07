@@ -15,7 +15,7 @@ spec:
         app: auth-service
     spec:
       containers:
-      - image: rithickramanthali/zakaa-auth:latest
+      - image: rithickramanthali/learnwise-auth:latest
         name: auth-service
         env:
             - name: NODE_PATH
