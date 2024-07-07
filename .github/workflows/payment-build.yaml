@@ -1,10 +1,10 @@
-name: Build and publish Notification service to Docker Hub
+name: Build and publish Payment service to Docker Hub
 
 on:
   push:
     branches: ['main']
     paths:
-      - "notification-service/**"
+      - "payment-service/**"
   workflow_dispatch:
   
 jobs:
@@ -24,6 +24,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context:  ./notification-service/
+          context:  ./payment-service/
           push: true
-          tags: rithickramanthali/learnwise-notification:latest
+          tags: rithickramanthali/learnwise-payment:latest
