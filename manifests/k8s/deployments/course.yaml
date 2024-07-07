@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: learnwise-course-deployment
+  labels:
+    name:  course-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: course-service
+  template:
+    metadata:
+      labels:
+        app: course-service
+    spec:
+      containers:
+      - image: rithickramanthali/learnwise-course:latest
+        name: course-service
+        envFrom:
+          - configMapRef:
+              name: course-service-config
