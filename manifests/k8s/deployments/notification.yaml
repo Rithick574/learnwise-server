@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: learnwise-notification-deployment
+  labels:
+    name:  notification-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-service
+  template:
+    metadata:
+      labels:
+        app: notification-service
+    spec:
+      containers:
+      - image: rithickramanthali/learnwise-notification:latest
+        name: notification-service
+        envFrom:
+          - configMapRef:
+              name: notification-service-config
