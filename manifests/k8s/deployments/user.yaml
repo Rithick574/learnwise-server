@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: learnwise-user-deployment
+  labels:
+    name:  user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - image: nabeelncz/zakaa-user:latest
+        name: user-service
+        envFrom:
+          - configMapRef:
+              name: user-service-config
