@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  learnwise-auth-service
+spec:
+  selector:
+    app: auth-service
+  ports:
+  - name:  auth-service
+    protocol: TCP
+    port:  4001
+    targetPort: 4001
