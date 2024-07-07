@@ -17,6 +17,9 @@ spec:
       containers:
       - image: rithickramanthali/zakaa-auth:latest
         name: auth-service
+        env:
+            - name: NODE_PATH
+              value: "/app/dist" 
         envFrom:
           - configMapRef:
               name: auth-service-config

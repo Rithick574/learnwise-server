@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: learnwise-chat-deployment
+  labels:
+    name:  chat-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chat-service
+  template:
+    metadata:
+      labels:
+        app: chat-service
+    spec:
+      containers:
+      - image: rithickramanthali/learnwise-chat:latest
+        name: chat-service
+        envFrom:
+          - configMapRef:
+              name: chat-service-config
