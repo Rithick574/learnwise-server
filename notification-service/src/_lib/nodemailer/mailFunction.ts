@@ -101,5 +101,4 @@ export const sendOTPMail = async (email:string, otp:string) => {
       
       `
     );
-    console.log("Email sent successfully: ", mailResponse);
   };
