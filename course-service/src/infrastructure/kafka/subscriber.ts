@@ -4,6 +4,7 @@ import {
   updateUserRoleConsumer,
   userBlockStatusChanged,
   updateUserProfileConsumer,
+  subscriptionConsumer
 } from "./consumers";
 
 interface IBaseSubscriber {
@@ -15,6 +16,7 @@ interface IBaseSubscriber {
     isBlocked: boolean;
   }): Promise<void>;
   userProfileUpdate(data: any): Promise<void>;
+  subscription: (data: { instructorId: string; amount: number }) => Promise<void>;
 }
 
 export interface ICourseSubscriber
@@ -25,6 +27,7 @@ export interface ICourseSubscriber
     | "updateUserRole"
     | "userBlockStatusChanged"
     | "userProfileUpdate"
+    | "subscription"
   > {}
 
 export const createSubscriber = (): ICourseSubscriber => {
@@ -34,5 +37,6 @@ export const createSubscriber = (): ICourseSubscriber => {
     updateUserRole: updateUserRoleConsumer,
     userBlockStatusChanged: userBlockStatusChanged,
     userProfileUpdate: updateUserProfileConsumer,
+    subscription:subscriptionConsumer
   };
 };

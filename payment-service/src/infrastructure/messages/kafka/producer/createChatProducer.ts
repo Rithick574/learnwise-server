@@ -13,7 +13,6 @@ export default async (data: { type: string; participants: string[] }) => {
       ],
     };
     await producer.send(message);
-    console.log("🚀 ~ file: createChatProducer.ts:28 ~ message:", message)
   } catch (error) {
     console.error("Kafka produce error:", (error as Error).message);
   } finally {

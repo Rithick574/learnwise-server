@@ -3,6 +3,7 @@ import { Subscription } from "@/infrastructure/database/models/Subscription";
 import { NextFunction, Request, Response } from "express";
 import Stripe from "stripe";
 import { createChatProducer} from "@/infrastructure/messages/kafka/producer"
+import createSubscriptionProducer from "@/infrastructure/messages/kafka/producer/createSubscriptionProducer";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET as string, {
   apiVersion: "2024-04-10",
@@ -34,7 +35,7 @@ export const subscriptionWebhook = (dependencies: IDependencies) => {
         const instructorId = checkoutSession.metadata?.instructorId as string;
         const subscriptionId = checkoutSession.id;
         const status = checkoutSession.payment_status;
-        const amount = checkoutSession.metadata?.amount;
+        const amount = checkoutSession.metadata?.amount as string;
 
         const timestamp = new Date(Date.now() + 28 * 24 * 60 * 60 * 1000);
         const currentPeriodEnd = new Date(timestamp);
@@ -50,6 +51,7 @@ export const subscriptionWebhook = (dependencies: IDependencies) => {
         try {
           await newSubscription.save();
           await createChatProducer({type:'individual',participants:[userId,instructorId]})
+          await createSubscriptionProducer({instructorId,amount})
         } catch (saveError) {
           console.error("Error saving subscription:", saveError);
           return res.status(500).send("Internal Server Error");
