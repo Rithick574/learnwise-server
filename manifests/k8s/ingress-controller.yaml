@@ -13,13 +13,13 @@ spec:
   - host: phonebazaar.shop
     http:
       paths:
-       - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: learnwisefrontend-service
-                port:
-                  number: 5173
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: learnwisefrontend-service
+            port:
+              number: 5173
       - path: /api/auth
         pathType: Prefix
         backend:
@@ -62,4 +62,3 @@ spec:
             name: learnwise-chat-service
             port:
               number: 4006
-     
