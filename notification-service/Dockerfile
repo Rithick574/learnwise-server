@@ -10,7 +10,9 @@ RUN pnpm install
 
 COPY . .
 
-RUN npm run build
+RUN ls -al
+
+RUN pnpm run build
 
 EXPOSE 4003
 

@@ -17,6 +17,7 @@
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "google-auth-library": "^9.11.0",
     "ioredis": "^5.4.1",
     "joi": "^17.13.0",
     "jsonwebtoken": "^9.0.2",
@@ -31,7 +32,8 @@
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.7",
     "@types/jsonwebtoken": "^9.0.6",
-    "@types/node": "^20.12.7"
+    "@types/node": "^20.12.7",
+    "typescript": "^5.5.3"
   },
   "_moduleAliases": {
     "@": "./dist"

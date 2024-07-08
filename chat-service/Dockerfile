@@ -10,6 +10,8 @@ RUN pnpm install
 
 COPY . .
 
+RUN ls -al
+
 RUN npm run build
 
 EXPOSE 4006
