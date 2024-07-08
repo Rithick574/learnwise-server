@@ -17,8 +17,6 @@ spec:
       containers:
       - image: rithickramanthali/learnwise-auth:latest
         name: auth-service
-        ports:
-        - containerPort: 4001
         env:
             - name: NODE_PATH
               value: "/app/dist" 

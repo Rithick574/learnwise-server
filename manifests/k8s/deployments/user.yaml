@@ -17,8 +17,6 @@ spec:
       containers:
       - image: rithickramanthali/learnwise-user:latest
         name: user-service
-        ports:
-        - containerPort: 4002
         envFrom:
           - configMapRef:
               name: user-service-config

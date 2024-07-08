@@ -17,8 +17,6 @@ spec:
       containers:
       - image: rithickramanthali/learnwise-notification:latest
         name: notification-service
-        ports:
-        - containerPort: 4003
         envFrom:
           - configMapRef:
               name: notification-service-config

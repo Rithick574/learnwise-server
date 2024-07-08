@@ -17,8 +17,6 @@ spec:
       containers:
       - image: rithickramanthali/learnwise-chat:latest
         name: chat-service
-         ports:
-        - containerPort: 4006
         envFrom:
           - configMapRef:
               name: chat-service-config
