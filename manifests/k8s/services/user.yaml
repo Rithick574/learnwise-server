@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name:  zakaa-user-service
+  name:  learnwise-user-service
 spec:
   selector:
     app: user-service
