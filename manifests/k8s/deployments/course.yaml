@@ -17,6 +17,8 @@ spec:
       containers:
       - image: rithickramanthali/learnwise-course:latest
         name: course-service
+         ports:
+        - containerPort: 4004
         envFrom:
           - configMapRef:
               name: course-service-config

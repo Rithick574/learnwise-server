@@ -6,13 +6,20 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/enable-cors: "true" 
-    nginx.ingress.kubernetes.io/cors-allow-origin: "http://phonebazaar.shop"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://phonebazaar.shop"
 spec:
   ingressClassName: webapprouting.kubernetes.azure.com
   rules:
-  - host: webapprouting.phonebazaar.shop
+  - host: phonebazaar.shop
     http:
       paths:
+       - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: learnwisefrontend-service
+                port:
+                  number: 5173
       - path: /api/auth
         pathType: Prefix
         backend:
