@@ -1,0 +1,4 @@
+node_modules
+manifests/k8s/configMaps/*
+!manifests/k8s/configMaps/.gitkeep
+
