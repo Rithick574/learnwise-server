@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN ls -al
+
 RUN npm run build
 
 EXPOSE 4002
