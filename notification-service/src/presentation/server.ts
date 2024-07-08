@@ -1,4 +1,4 @@
-import express, { Application, Request, Response, NextFunction } from "express";
+import express, { Application, Request, Response } from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { notificationRoutes } from "@/infrastructure/routes";

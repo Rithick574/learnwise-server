@@ -1,7 +1,7 @@
 import {generateVerificationMail} from "./index"
 
 export const sendOTPMail = async (email:string, otp:string) => {
-    const mailResponse = await generateVerificationMail(
+     await generateVerificationMail(
       email,
       "Email Verification",
       `<!DOCTYPE html>

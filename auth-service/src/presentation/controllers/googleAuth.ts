@@ -31,7 +31,7 @@ export const googleAuthController = (dependencies: IDependencies) => {
         });
       }
 
-      const { email, given_name, family_name } = payload;
+      const { email, given_name } = payload;
 
       const exist = await findUserByEmailUseCase(dependencies).execute(email);
 

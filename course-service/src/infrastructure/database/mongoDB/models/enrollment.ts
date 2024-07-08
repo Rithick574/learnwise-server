@@ -1,16 +1,6 @@
 import { EnrollmentEntity } from "@/domain/entities";
 import { Schema, model } from "mongoose";
 
-const LessonProgressSchema = new Schema({
-  lessonId: {
-    type: Schema.Types.ObjectId,
-    required: true,
-  },
-  totalTimeWatched: {
-    type: Number,
-    default: 0,
-  },
-});
 
 const enrollmentSchema = new Schema({
   userId: {

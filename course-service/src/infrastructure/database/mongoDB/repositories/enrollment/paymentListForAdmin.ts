@@ -1,6 +1,6 @@
 import { ErrorResponse } from "@learnwise/common";
 import { Enrollment } from "../../models/enrollment";
-import { Types } from "mongoose";
+import { Document, Types } from "mongoose";
 
 
 interface User {
