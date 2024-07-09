@@ -6,7 +6,7 @@ import database from "./_boot/config"
 try {
     server;
     await Promise.all([database()])
-    .then(() => console.log("kafka consumer is runnnig"))
+    .then(() => console.log("kafka consumer is runnnig..."))
     .catch((error) => {
       console.error(`Error while initializing Kafka consumer: ${error}`);
       process.exit(0);

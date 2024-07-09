@@ -7,7 +7,7 @@ import {runConsumer,stopConsumer} from "./__boot/consumer"
       server;
   
       await runConsumer()
-        .then(() => console.log("kafka consumer is runnnig"))
+        .then(() => console.log("kafka consumer is runnnig..."))
         .catch((error:any) => {
           console.error(`Error while initializing Kafka consumer: ${error}`);
           process.exit(0);

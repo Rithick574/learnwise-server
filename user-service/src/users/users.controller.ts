@@ -50,7 +50,7 @@ export class UsersController {
         message: "Applied successfully"
       });
     } catch (error:any) {
-      console.error("Error when creating instructor application:", error);
+      console.error("Error while creating instructor application:", error);
       const message = error.response || 'Failed to process application due to internal error';
       res.status( error.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
         success: false,
