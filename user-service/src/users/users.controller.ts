@@ -47,7 +47,7 @@ export class UsersController {
       res.status(HttpStatus.OK).json({
         success: true,
         data: result,
-        message: "Applied successfully"
+        message: "instructor Applied successfully"
       });
     } catch (error:any) {
       console.error("Error while creating instructor application:", error);
