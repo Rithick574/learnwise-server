@@ -1,4 +1,4 @@
-import { IExamResult } from "@/domain/entities";
+import { IExamResult } from "../../../../../domain/entities";
 import { Exam } from "../../models/exams";
 import { ExamResult } from "../../models/examResult";
 

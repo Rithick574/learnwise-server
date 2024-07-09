@@ -1,5 +1,5 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { IReview } from "@/domain/entities";
+import { IDependencies } from "../../../application/interfaces/IDependencies";
+import { IReview } from "../../../domain/entities";
 
 
 export const createReviewUseCase = (dependencies : IDependencies)=>{

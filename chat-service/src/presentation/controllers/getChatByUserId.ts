@@ -1,4 +1,4 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { IDependencies } from "../../application/interfaces/IDependencies";
 import { ErrorResponse } from "@learnwise/common";
 import { NextFunction, Request, Response } from "express";
 

@@ -1,4 +1,4 @@
-import {generateInstructorConfirmationMail} from "@/_lib/nodemailer"
+import {generateInstructorConfirmationMail} from "../../_lib/nodemailer"
 
 export const instructorNotification = async (
     email: string,

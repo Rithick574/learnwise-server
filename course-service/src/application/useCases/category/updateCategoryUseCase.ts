@@ -1,4 +1,4 @@
-import { CategoryEntity } from "@/domain/entities/categoryEntity";
+import { CategoryEntity } from "../../../domain/entities";
 import { IDependencies } from "../../interfaces/IDependencies";
 
 export const updateCategoryUseCase = (dependencies: IDependencies) => {

@@ -1,4 +1,4 @@
-import { IPaymentEntity } from "@/domain/entities";
+import { IPaymentEntity } from "../../../domain/entities";
 import { Payment } from "../models/payment";
 
 export const savePayment = async (data: any):Promise<IPaymentEntity | null > => {

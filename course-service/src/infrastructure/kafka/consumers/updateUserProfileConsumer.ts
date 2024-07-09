@@ -1,5 +1,5 @@
-import { UserEntity } from "@/domain/entities"; 
-import { User } from "@/infrastructure/database/mongoDB/models/user";
+import { UserEntity } from "../../../domain/entities"; 
+import { User } from "../../database/mongoDB/models/user";
 
 export async function updateUserProfileConsumer(data: { kafkaMessage: { email: string, updatedUserData: UserEntity }}): Promise<void>{
     try {

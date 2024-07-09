@@ -1,4 +1,4 @@
-import { Enrollment } from "@/infrastructure/database/mongoDB/models/enrollment";
+import { Enrollment } from "../../models/enrollment";
 
 export const adminDashboard = async () => {
   try {

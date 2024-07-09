@@ -1,5 +1,5 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { coursePaymentSuccessProducer } from "@/infrastructure/messages/kafka/producer";
+import { IDependencies } from "../../application/interfaces/IDependencies";
+import { coursePaymentSuccessProducer } from "../../infrastructure/messages/kafka/producer";
 import { ErrorResponse } from "@learnwise/common";
 import { NextFunction, Request, Response } from "express";
 

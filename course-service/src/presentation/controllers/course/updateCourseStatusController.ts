@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { IDependencies } from "../../../application/interfaces/IDependencies";
 import mongoose from "mongoose";
 
 export const updateCourseStatusController = (dependencies: IDependencies) => {

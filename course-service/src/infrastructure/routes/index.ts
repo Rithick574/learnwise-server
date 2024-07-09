@@ -1,7 +1,7 @@
-import { jwtMiddleware } from "@/_lib/common";
-import { verifyAdmin, verifyInstructor } from "@/_lib/common/middlewares";
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { controllers } from "@/presentation/controllers";
+import { jwtMiddleware } from "../../_lib/common";
+import { verifyAdmin, verifyInstructor } from "../../_lib/common/middlewares";
+import { IDependencies } from "../../application/interfaces/IDependencies";
+import { controllers } from "../../presentation/controllers";
 import { Router } from "express";
 
 export const routes = (dependencies: IDependencies) => {

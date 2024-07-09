@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import {ErrorResponse} from "@/_lib/common/error"
-import { findUserById } from "@/infrastructure/database/mongoDB/repositories";
+import {ErrorResponse} from "../../../_lib/common/error"
+import { findUserById } from "../../../infrastructure/database/mongoDB/repositories";
 
 export const verifyAdmin = async (req: Request, res: Response, next: NextFunction) => {
     

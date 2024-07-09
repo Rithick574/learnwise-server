@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { IDependencies } from "../../../application/interfaces/IDependencies";
 import { ErrorResponse } from "@learnwise/common";
 
 export const editCourseController =(dependencies:IDependencies)=>{

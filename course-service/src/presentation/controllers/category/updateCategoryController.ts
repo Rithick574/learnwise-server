@@ -1,4 +1,4 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { IDependencies } from "../../../application/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
 
 export const updateCategoryController = (dependencies: IDependencies) => {

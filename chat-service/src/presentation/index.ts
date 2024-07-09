@@ -7,9 +7,9 @@ import helmet from "helmet";
 import cors from "cors";
 import http from "http";
 import morgan from "morgan";
-import connectSocketIo from "@/infrastructure/socket";
-import { router } from "@/infrastructure/routes";
-import { dependencies } from "@/_boot/dependencies";
+import connectSocketIo from "../infrastructure/socket";
+import { router } from "../infrastructure/routes";
+import { dependencies } from "../_boot/dependencies";
 
 dotenv.config();
 

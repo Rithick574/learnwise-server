@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import {CategoryEntity} from "@/domain/entities/categoryEntity"
+import {CategoryEntity} from "../../../../domain/entities/categoryEntity"
 
 const categorySchema= new Schema ({
     title:{

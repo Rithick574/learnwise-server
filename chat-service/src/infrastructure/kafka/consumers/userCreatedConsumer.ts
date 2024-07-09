@@ -1,5 +1,5 @@
-import { UserEntity } from "@/domain/entities";
-import { createUser } from "@/infrastructure/database/mongoDB/repositories/user/createUser";
+import { UserEntity } from "../../../domain/entities";
+import { createUser } from "../../database/mongoDB/repositories/user/createUser";
 
 export default async (data: UserEntity) => {
   try {

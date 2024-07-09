@@ -1,4 +1,4 @@
-import { IReview } from "@/domain/entities/reviewEntity";
+import { IReview } from "../../../../domain/entities/reviewEntity";
 import { Schema, model } from "mongoose";
 
 const reviewSchema = new Schema(

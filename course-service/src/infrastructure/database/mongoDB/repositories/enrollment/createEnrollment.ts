@@ -1,5 +1,5 @@
-import { Enrollment } from "@/infrastructure/database/mongoDB/models/enrollment";
-import { EnrollmentEntity } from "@/domain/entities";
+import { Enrollment } from "../../models/enrollment";
+import { EnrollmentEntity } from "../../../../../domain/entities";
 
 export const createEnrollment = async (
   data: EnrollmentEntity

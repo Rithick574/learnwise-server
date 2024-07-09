@@ -1,4 +1,4 @@
-import { IReview } from "@/domain/entities/reviewEntity";
+import { IReview } from "../../../../../domain/entities/reviewEntity";
 import { Review } from "../../models/review";
 
 export const createReview = async (

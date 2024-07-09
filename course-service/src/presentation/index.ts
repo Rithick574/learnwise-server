@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 dotenv.config();
 import {errorHandler} from "@learnwise/common"
-import {routes} from "@/infrastructure/routes"
-import { dependencies } from "@/_boot/dependencies";
+import {routes} from "../infrastructure/routes"
+import { dependencies } from "../_boot/dependencies";
 import mongoSanitize from "express-mongo-sanitize"
 import helmet from "helmet";
 import morgan from "morgan";

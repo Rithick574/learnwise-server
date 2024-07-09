@@ -1,5 +1,5 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { CourseEntity } from "@/domain/entities/CourseEntity";
+import { IDependencies } from "../../../application/interfaces/IDependencies";
+import { CourseEntity } from "../../../domain/entities/CourseEntity";
 
 export const editCourseUseCase=(dependencies:IDependencies)=>{
     const {repositories:{editCourse}} = dependencies;

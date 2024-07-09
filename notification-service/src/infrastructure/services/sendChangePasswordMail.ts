@@ -1,4 +1,4 @@
-import {generateForgotPasswordMail} from "@/_lib/nodemailer"
+import {generateForgotPasswordMail} from "../../_lib/nodemailer"
 
 export const sendChangePasswordMail = async (
     email: string,

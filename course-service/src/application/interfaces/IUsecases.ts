@@ -25,9 +25,9 @@ import {
   IEditCourseUseCase,
   IEnrollmentProgressUseCase,
   IGetEnrollmentByUserIdUseCase
-} from "@/domain/useCases";
+} from "../../domain/useCases";
 import { IDependencies } from "./IDependencies";
-import { ICreateExamUseCase, IGetExamUseCase, ISubmitExamUseCase } from "@/domain/useCases/exams";
+import { ICreateExamUseCase, IGetExamUseCase, ISubmitExamUseCase } from "../../domain/useCases/exams";
 
 export interface IUseCases {
   getAllCategoriesUseCase: (

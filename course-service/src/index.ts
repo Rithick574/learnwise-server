@@ -1,6 +1,6 @@
-import database from "@/_boot/config";
-import server from  "@/presentation"
-import {runConsumer,stopConsumer} from "@/_boot/consumer"
+import database from "./_boot/config";
+import server from  "./presentation"
+import {runConsumer,stopConsumer} from "./_boot/consumer"
 
 (async () => {
   try {

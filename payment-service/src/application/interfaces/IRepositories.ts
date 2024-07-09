@@ -1,4 +1,4 @@
-import { IPaymentEntity, ISubscription } from "@/domain/entities";
+import { IPaymentEntity, ISubscription } from "../../domain/entities";
 
 export interface IRepositories {
     savePayment: (data: any) => Promise <IPaymentEntity | null> 

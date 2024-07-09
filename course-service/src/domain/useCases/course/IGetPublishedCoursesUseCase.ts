@@ -1,4 +1,4 @@
-import { CourseEntity } from "@/domain/entities/CourseEntity";
+import { CourseEntity } from "../../../domain/entities/CourseEntity";
 
 export interface IGetPublishedCoursesUseCase {
   execute(

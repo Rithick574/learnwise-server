@@ -1,4 +1,4 @@
-import { EnrollmentEntity } from "@/domain/entities";
+import { EnrollmentEntity } from "../../../../../domain/entities";
 import { Enrollment } from "../../models/enrollment";
 import { ErrorResponse } from "@learnwise/common";
 

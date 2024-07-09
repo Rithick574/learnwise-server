@@ -1,6 +1,6 @@
 import { ErrorResponse } from "@learnwise/common";
 import { User } from "../../models/user";
-import { UserEntity } from "@/domain/entities";
+import { UserEntity } from "../../../../../domain/entities";
 
 export const createUser = async (
     data: UserEntity

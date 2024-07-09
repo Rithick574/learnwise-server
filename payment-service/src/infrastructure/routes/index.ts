@@ -1,6 +1,6 @@
 import express,{ Router } from "express";
-import { controllers } from "@/presentation/controllers";
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { controllers } from "../../presentation/controllers";
+import { IDependencies } from "../../application/interfaces/IDependencies";
 
 export const routes = (dependencies: IDependencies) => {
 

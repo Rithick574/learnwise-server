@@ -1,7 +1,7 @@
-import { controllers } from "@/presentation/controllers";
+import { controllers } from "../../presentation/controllers";
 import { Router } from "express";
-import { jwtMiddleware } from "@/_lib/common";
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { jwtMiddleware } from "../../_lib/common";
+import { IDependencies } from "../../application/interfaces/IDependencies";
 
 
 export const notificationRoutes = (dependencies: IDependencies) => {

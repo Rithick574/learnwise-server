@@ -1,5 +1,5 @@
 import { Schema, model, Types } from "mongoose";
-import { CourseEntity } from "@/domain/entities/CourseEntity";
+import { CourseEntity } from "../../../../domain/entities/CourseEntity";
 
 
 const subLessonSchema=new Schema({

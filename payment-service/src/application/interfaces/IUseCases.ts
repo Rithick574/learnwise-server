@@ -1,4 +1,4 @@
-import { ISavePaymentUseCase,IGetSubscriptionDataUseCase } from "@/domain/useCases";
+import { ISavePaymentUseCase,IGetSubscriptionDataUseCase } from "../../domain/useCases";
 import { IDependencies } from "./IDependencies";
 
 

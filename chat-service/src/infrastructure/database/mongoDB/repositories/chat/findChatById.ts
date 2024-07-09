@@ -1,4 +1,4 @@
-import { ChatEntity } from "@/domain/entities";
+import { ChatEntity } from "../../../../../domain/entities";
 import { Chat } from "../../models/chat";
 
 export const findChatById = async (chatId: string): Promise<ChatEntity | null> => {

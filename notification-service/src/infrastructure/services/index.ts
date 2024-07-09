@@ -1,6 +1,6 @@
-import { generateVerificationOTP } from "@/_lib/otp";
-import {sendOTPMail} from "@/_lib/nodemailer"
-import { sendVerifyMailProducer } from "@/infrastructure/kafka/producers";
+import { generateVerificationOTP } from "../../_lib/otp";
+import {sendOTPMail} from "../../_lib/nodemailer"
+import { sendVerifyMailProducer } from "../../infrastructure/kafka/producers";
 
 export const sendVerificationMail = async (email: string) => {
     try {

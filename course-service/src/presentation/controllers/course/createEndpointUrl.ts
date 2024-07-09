@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Mux from '@mux/mux-node'
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { IDependencies } from "../../../application/interfaces/IDependencies";
 
 const mux = new Mux({
     tokenId:process.env.MUX_TOKEN_ID,

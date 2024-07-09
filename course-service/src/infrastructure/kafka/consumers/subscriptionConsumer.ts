@@ -1,4 +1,4 @@
-import { User } from "@/infrastructure/database/mongoDB/models/user";
+import { User } from "../../database/mongoDB/models/user";
 
 
 export const subscriptionConsumer = async (data: { instructorId: string; amount: number }) => {

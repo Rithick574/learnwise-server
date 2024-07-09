@@ -1,4 +1,4 @@
-import { MessageEntity } from "@/domain/entities";
+import { MessageEntity } from "../../domain/entities";
 import { IDependencies } from "../interfaces/IDependencies";
 
 export const createMessageUseCase =(dependencies:IDependencies)=>{

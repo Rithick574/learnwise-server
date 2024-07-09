@@ -1,4 +1,4 @@
-import { IExamResult } from "@/domain/entities";
+import { IExamResult } from "../../../../domain/entities";
 import { Schema, model } from "mongoose";
 
 const examResultSchema = new Schema({

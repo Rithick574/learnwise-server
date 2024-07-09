@@ -1,5 +1,5 @@
-import { consumer } from "@/infrastructure/kafka/index";
-import { IChatSubscriber, createSubscriber } from "@/infrastructure/kafka/subscribe";
+import { consumer } from "../infrastructure/kafka/index";
+import { IChatSubscriber, createSubscriber } from "../infrastructure/kafka/subscribe";
 import { EachMessagePayload } from "kafkajs";
 
 export const runConsumer = async () => {

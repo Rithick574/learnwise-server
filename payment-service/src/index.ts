@@ -1,5 +1,5 @@
-import server from "@/presentation/index"
-import database from "@/_boot/config"
+import server from "./presentation/index"
+import database from "./_boot/config"
 
 
 (async()=>{

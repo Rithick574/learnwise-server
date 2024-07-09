@@ -1,4 +1,4 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { IDependencies } from "../../application/interfaces/IDependencies";
 import { createCheckoutSessionController } from "./createCheckoutSession";
 import { savePaymentController } from "./savePayment";
 import {getSubscriptionDataController } from "./getSubscriptionData"

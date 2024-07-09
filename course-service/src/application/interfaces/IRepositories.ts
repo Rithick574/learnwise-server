@@ -4,7 +4,7 @@ import {
   IReview,
   CategoryEntity,
   CourseEntity,
-} from "@/domain/entities";
+} from "../../domain/entities";
 
 export interface IRepositories {
   getAllCategories: (

@@ -1,10 +1,10 @@
-import { EnrollmentEntity, UserEntity } from "@/domain/entities";
-import { Course } from "@/infrastructure/database/mongoDB/models/course";
-import { User } from "@/infrastructure/database/mongoDB/models/user";
+import { EnrollmentEntity, UserEntity } from "../../../domain/entities";
+import { Course } from "../../database/mongoDB/models/course";
+import { User } from "../../database/mongoDB/models/user";
 import {
     createEnrollment,
     getEnrollmentByUserId
-} from "@/infrastructure/database/mongoDB/repositories";
+} from "../../../infrastructure/database/mongoDB/repositories";
 import { Schema, Document } from "mongoose";
 
 

@@ -1,4 +1,4 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { IDependencies } from "../../application/interfaces/IDependencies";
 
 //category
 import {
@@ -6,7 +6,7 @@ import {
   createCategoryController,
   getAllCategoriesController,
   getAvailableCategoriesController,
-} from "@/presentation/controllers/category";
+} from "../../presentation/controllers/category";
 
 //course
 import {
@@ -21,7 +21,7 @@ import {
   updateCourseStatusController,
   instructorCourseController,
   editCourseController,
-} from "@/presentation/controllers/course";
+} from "../../presentation/controllers/course";
 
 //enrollment
 import {
@@ -33,15 +33,15 @@ import {
   adminPaymentController,
   enrollmentProgressController,
   getEnrollmentByUserIdController
-} from "@/presentation/controllers/enrollment";
+} from "../../presentation/controllers/enrollment";
 
 //review
 import {
   createReviewController,
   getReviewsController,
-} from "@/presentation/controllers/reviews";
+} from "../../presentation/controllers/reviews";
 
-import {createExamController, getExamController,submitExamController} from "@/presentation/controllers/exam";
+import {createExamController, getExamController,submitExamController} from "../../presentation/controllers/exam";
 
 export const controllers = (dependencies: IDependencies) => {
   return {

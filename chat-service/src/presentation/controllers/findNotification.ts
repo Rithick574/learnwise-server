@@ -1,4 +1,4 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { IDependencies } from "../../application/interfaces/IDependencies";
 import { NextFunction, Request, Response } from "express";
 
 export const findNotificationController=(dependencies:IDependencies)=>{

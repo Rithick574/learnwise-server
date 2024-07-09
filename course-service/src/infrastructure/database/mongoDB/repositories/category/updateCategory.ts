@@ -1,4 +1,4 @@
-import { CategoryEntity } from "@/domain/entities/categoryEntity";
+import { CategoryEntity } from "../../../../../domain/entities/categoryEntity";
 import { Category } from "../../models/category";
 import {ErrorResponse} from "@learnwise/common"
 

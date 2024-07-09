@@ -1,4 +1,4 @@
-import { createChat } from "@/infrastructure/database/mongoDB/repositories"
+import { createChat } from "../../database/mongoDB/repositories"
 
 
 export default async(

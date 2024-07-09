@@ -1,4 +1,4 @@
-import { EnrollmentEntity } from "@/domain/entities";
+import { EnrollmentEntity } from "../../../../domain/entities";
 import { Schema, model } from "mongoose";
 
 

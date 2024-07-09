@@ -1,4 +1,4 @@
-import { ISubscription } from "@/domain/entities";
+import { ISubscription } from "../../../domain/entities";
 import { Subscription } from "../models/Subscription";
 
 export const getSubscriptionData= async(userId:string,instructorId:string):Promise<ISubscription | null>=>{

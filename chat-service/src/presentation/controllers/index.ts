@@ -1,4 +1,4 @@
-import { IDependencies } from '@/application/interfaces/IDependencies'
+import { IDependencies } from '../../application/interfaces/IDependencies'
 import { createChatController } from './createChatController'
 import { createMessageController } from './createMessageController'
 import { getChatAndMessages } from './getChatAndMessages'

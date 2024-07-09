@@ -1,9 +1,9 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { Subscription } from "@/infrastructure/database/models/Subscription";
+import { IDependencies } from "../../application/interfaces/IDependencies";
+import { Subscription } from "../../infrastructure/database/models/Subscription";
 import { NextFunction, Request, Response } from "express";
 import Stripe from "stripe";
-import { createChatProducer} from "@/infrastructure/messages/kafka/producer"
-import createSubscriptionProducer from "@/infrastructure/messages/kafka/producer/createSubscriptionProducer";
+import { createChatProducer} from "../../infrastructure/messages/kafka/producer"
+import createSubscriptionProducer from "../../infrastructure/messages/kafka/producer/createSubscriptionProducer";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET as string, {
   apiVersion: "2024-04-10",
