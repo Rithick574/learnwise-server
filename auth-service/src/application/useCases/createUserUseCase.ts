@@ -1,5 +1,5 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { UserEntity } from "@/domain/entities";
+import { IDependencies } from "../../application/interfaces/IDependencies";
+import { UserEntity } from "../../domain/entities";
 
 export const createUserUseCase = (dependencies: IDependencies) => {
     const {

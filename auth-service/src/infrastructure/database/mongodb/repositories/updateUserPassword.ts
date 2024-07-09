@@ -1,5 +1,5 @@
 import { User } from "../models";
-import { UserEntity } from "@/domain/entities";
+import { UserEntity } from "../../../../domain/entities";
 
 export const updateUserPassword=async(data:{
     email:string;

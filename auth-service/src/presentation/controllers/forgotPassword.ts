@@ -1,8 +1,8 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { IDependencies } from "../../application/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
-import { ErrorResponse } from "@/_lib/common/error";
-import { generateForgotPasswordToken } from "@/_lib/jwt";
-import { requestForgotPassword } from "@/infrastructure/kafka/producers";
+import { ErrorResponse } from "../../_lib/common/error";
+import { generateForgotPasswordToken } from "../../_lib/jwt";
+import { requestForgotPassword } from "../../infrastructure/kafka/producers";
 
 export const forgotPasswordController = (dependencies: IDependencies) => {
   const {

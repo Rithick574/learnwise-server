@@ -1,4 +1,4 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { IDependencies } from "../../application/interfaces/IDependencies";
 import { signupController } from "./signup";
 import {loginController} from "./login"
 import {getUserController} from "./getUser"

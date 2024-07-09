@@ -1,4 +1,4 @@
-import { ICreateUserUseCase,ILoginUserUseCase,IFindUserByIdUseCase,IFindUserByEmailUseCase,IVerifyOtpUseCase,IUpdateUserPasswordUseCase, IGetAllUsers } from "@/domain/useCases"; 
+import { ICreateUserUseCase,ILoginUserUseCase,IFindUserByIdUseCase,IFindUserByEmailUseCase,IVerifyOtpUseCase,IUpdateUserPasswordUseCase, IGetAllUsers } from "../../domain/useCases"; 
 
 
 export interface IUseCases {

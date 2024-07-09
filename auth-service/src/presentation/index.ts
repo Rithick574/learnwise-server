@@ -2,9 +2,9 @@ import express, { Application, Request, Response } from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser"
 dotenv.config();
-import {routes} from "@/infrastructure/routes"
-import { dependencies } from "@/_boot/dependencies";
-import {errorHandler} from "@/_lib/common/error"
+import {routes} from "../infrastructure/routes"
+import { dependencies } from "../_boot/dependencies";
+import {errorHandler} from "../_lib/common/error"
 
 
 const app: Application = express();

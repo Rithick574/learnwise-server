@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { generateAccessToken } from "@/_lib/jwt";
+import { generateAccessToken } from '@/_lib/jwt'; 
 import { Request, Response, NextFunction } from "express";
 
 interface UserPayload {

@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { generateRefreshToken, generateAccessToken } from "@/_lib/jwt";
-import { generateRandomString } from "@/_lib/util/generateRandomString";
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { UserEntity } from "@/domain/entities";
-import { userCreatedProducer } from "@/infrastructure/kafka/producers";
+import { generateRefreshToken, generateAccessToken } from "../../_lib/jwt";
+import { generateRandomString } from "../../_lib/util/generateRandomString";
+import { IDependencies } from "../../application/interfaces/IDependencies";
+import { UserEntity } from "../../domain/entities";
+import { userCreatedProducer } from "../../infrastructure/kafka/producers";
 import { OAuth2Client } from "google-auth-library";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 

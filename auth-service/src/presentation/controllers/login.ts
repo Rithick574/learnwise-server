@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { generateAccessToken, generateRefreshToken } from "@/_lib/jwt";
-import { loginValidation } from "@/_lib/validation";
-import { comparePassword } from "@/_lib/bcrypt";
-import {ErrorResponse} from "@/_lib/common/error"
+import { IDependencies } from "../../application/interfaces/IDependencies";
+import { generateAccessToken, generateRefreshToken } from "../../_lib/jwt";
+import { loginValidation } from "../../_lib/validation";
+import { comparePassword } from "../../_lib/bcrypt";
+import {ErrorResponse} from "../../_lib/common/error"
 
 export const loginController = (dependencies: IDependencies) => {
   const {

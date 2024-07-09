@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { signupValidation } from "@/_lib/validation";
-import { hashPassword } from "@/_lib/bcrypt";
-import { generateAccessToken, generateRefreshToken } from "@/_lib/jwt";
-import { userCreatedProducer } from "@/infrastructure/kafka/producers";
-import { ErrorResponse } from "@/_lib/common/error";
+import { IDependencies } from "../../application/interfaces/IDependencies";
+import { signupValidation } from "../../_lib/validation";
+import { hashPassword } from "../../_lib/bcrypt";
+import { generateAccessToken, generateRefreshToken } from "../../_lib/jwt";
+import { userCreatedProducer } from "../../infrastructure/kafka/producers";
+import { ErrorResponse } from "../../_lib/common/error";
 
 export const signupController = (dependencies: IDependencies) => {
   const {

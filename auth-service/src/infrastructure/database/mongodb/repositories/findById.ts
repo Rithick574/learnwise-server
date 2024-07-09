@@ -1,5 +1,5 @@
-import { User } from "@/infrastructure/database/mongodb/models";
-import { UserEntity } from "@/domain/entities";
+import { User } from "../models";
+import { UserEntity } from "../../../../domain/entities";
 
 
 export const findById = async (

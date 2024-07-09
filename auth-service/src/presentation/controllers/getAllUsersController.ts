@@ -1,6 +1,6 @@
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { IDependencies } from "../../application/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
-import { ErrorResponse } from "@/_lib/common/error";
+import { ErrorResponse } from "../../_lib/common/error";
 
 export const getAllUsersController = (dependencies: IDependencies) => {
   const {

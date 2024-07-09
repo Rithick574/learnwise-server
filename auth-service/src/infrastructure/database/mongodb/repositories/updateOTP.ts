@@ -1,5 +1,5 @@
-import { Otp } from "@/infrastructure//database/mongodb/models";
-import { IOtp } from "@/domain/entities";
+import { Otp } from "../models";
+import { IOtp } from "../../../../domain/entities";
 
 export const updateOTP = async (
     data: {

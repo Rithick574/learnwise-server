@@ -1,5 +1,5 @@
-import { User } from "@/infrastructure/database/mongodb/models/index";
-import { UserEntity } from "@/domain/entities";
+import { User } from "../models/index";
+import { UserEntity } from "../../../../domain/entities";
 
 
 export const create = async( data:UserEntity):Promise<UserEntity | null > =>{

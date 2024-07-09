@@ -1,4 +1,4 @@
-import { User } from "@/infrastructure/database/mongodb/models";
+import { User } from "../../../infrastructure/database/mongodb/models";
 
 export async function userBlockStatusChanged(data: {
   id: string;

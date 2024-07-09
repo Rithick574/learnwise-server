@@ -1,5 +1,5 @@
 import { User } from "../models";
-import { UserEntity } from "@/domain/entities";
+import { UserEntity } from "../../../../domain/entities";
 
 
 export const getAllUser=async():Promise<UserEntity[]|false>=>{

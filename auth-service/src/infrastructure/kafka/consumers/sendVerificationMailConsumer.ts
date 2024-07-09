@@ -1,4 +1,4 @@
-import { updateOTPService } from "@/infrastructure/services/updateOtp";
+import { updateOTPService } from "../../../infrastructure/services/updateOtp";
 
 export default async (
     data: {

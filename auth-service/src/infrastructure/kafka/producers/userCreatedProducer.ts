@@ -1,5 +1,5 @@
 import {producer} from ".."
-import { UserEntity } from "@/domain/entities"
+import { UserEntity } from "../../../domain/entities"
 
 
 export default async(data:UserEntity,topic?: string)=>{
