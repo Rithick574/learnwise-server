@@ -5,7 +5,7 @@ import { UsersService } from 'src/users/users.service';
 @Injectable()
 export class ConsumerService implements OnModuleInit {
   private readonly kafka = new Kafka({
-    brokers: ['localhost:29092'],
+    brokers: ['34.93.145.38:29092'],
   });
   
   // private readonly kafka = new Kafka({

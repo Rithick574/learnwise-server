@@ -13,7 +13,7 @@ import { Kafka, Producer, Partitioners, Consumer } from "kafkajs";
 
 export const kafka = new Kafka({
   clientId: 'auth-service',
-  brokers: ["localhost:29092"]
+  brokers: ["34.93.145.38:29092"]
 })
 
 export const producer: Producer = kafka.producer({
