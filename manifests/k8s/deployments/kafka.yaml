@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: kafka
-          image: confluentinc/cp-kafka:6.2.0
+          image: bitnami/kafka:latest
           ports:
             - containerPort: 9092
             - containerPort: 29092
