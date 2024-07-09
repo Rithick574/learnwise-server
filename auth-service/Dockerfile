@@ -12,7 +12,7 @@ COPY . .
 
 RUN ls -al
 
-RUN npm run build
+RUN pnpm build
 
 EXPOSE 4001
 
