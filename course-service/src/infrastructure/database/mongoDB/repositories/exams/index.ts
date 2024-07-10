@@ -1,3 +1,5 @@
 export * from "./createExam"
 export * from "./getExam"
 export * from "./submitExam"
+export * from "./createCertificate"
+export * from "./getCertificates"

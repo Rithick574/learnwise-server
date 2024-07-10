@@ -20,13 +20,13 @@ export const createCheckoutSessionController = (dependencies: IDependencies)=>{
                   quantity: 1,
                 },
               ];
-
+              const frontendUrl = process.env.FRONTEND_URL as string;
               const session = await stripeInstance.checkout.sessions.create({
                 payment_method_types: ["card"],
                 line_items: lineItems,
                 mode: "payment",
-                success_url: "http://localhost:5173/course/paymentsuccess",
-                cancel_url: "http://localhost:5173/courses/paymentfailed",
+                success_url: `${frontendUrl}/course/paymentsuccess`,
+                cancel_url: `${frontendUrl}/courses/paymentfailed`,
                 metadata: {
                     userId: userId,
                     courseId: courseId,

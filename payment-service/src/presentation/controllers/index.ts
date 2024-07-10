@@ -4,6 +4,7 @@ import { savePaymentController } from "./savePayment";
 import {getSubscriptionDataController } from "./getSubscriptionData"
 import {subscriptionWebhook} from "./subscriptionWebhook"
 import {createSubscriptionSessionController} from "./createSubscriptionSession"
+import {getSubscribedInstructors} from "./getSubscribedInstructors"
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -12,6 +13,7 @@ export const controllers = (dependencies: IDependencies) => {
         savePayment: savePaymentController(dependencies),
         getsubscriptionData:getSubscriptionDataController(dependencies),
         webhook:subscriptionWebhook(dependencies),
-        createSessionSubscription:createSubscriptionSessionController(dependencies)
+        createSessionSubscription:createSubscriptionSessionController(dependencies),
+        getStudentsSubscription:getSubscribedInstructors(dependencies)
     }
 }

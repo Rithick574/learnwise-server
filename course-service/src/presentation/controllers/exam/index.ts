@@ -1,3 +1,5 @@
 export * from "./createExamController"
 export * from "./getExamController"
 export * from "./submitExamController"
+export * from "./certificateController"
+export * from "./getCertificatesController"

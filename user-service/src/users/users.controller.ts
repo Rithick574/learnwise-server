@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import * as bcrypt from 'bcrypt';
 import { InstructorQueryDto } from './dto/instructor-query.dto';
 
+// @Controller()
 @Controller('api/user')
 export class UsersController {
   constructor(

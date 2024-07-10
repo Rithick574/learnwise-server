@@ -27,7 +27,7 @@ import {
   IGetEnrollmentByUserIdUseCase
 } from "../../domain/useCases";
 import { IDependencies } from "./IDependencies";
-import { ICreateExamUseCase, IGetExamUseCase, ISubmitExamUseCase } from "../../domain/useCases/exams";
+import { ICreateCertificateUseCase, ICreateExamUseCase, IGetCertificates, IGetExamUseCase, ISubmitExamUseCase } from "../../domain/useCases/exams";
 
 export interface IUseCases {
   getAllCategoriesUseCase: (
@@ -75,4 +75,6 @@ export interface IUseCases {
   submitExamUseCase:(dependencies:IDependencies)=> ISubmitExamUseCase;
   enrollmentProgressUseCase:(dependencies:IDependencies)=>IEnrollmentProgressUseCase;
   getEnrollmentByUserIdUseCase:(dependencies:IDependencies)=>IGetEnrollmentByUserIdUseCase;
+  createCertificateUseCase:(dependencies:IDependencies)=>ICreateCertificateUseCase;
+  getCertificatesUseCase:(dependencies:IDependencies)=>IGetCertificates;
 }

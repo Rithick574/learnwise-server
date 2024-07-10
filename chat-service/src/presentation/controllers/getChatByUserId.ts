@@ -23,7 +23,6 @@ export const getChatByUserId = (dependencies: IDependencies) => {
         message: "chats found",
       });
     } catch (error) {
-      console.log("🚀 ~ file: getChatByUserId.ts:28 ~ return ~ error:", error)
       next(error)
     }
   };

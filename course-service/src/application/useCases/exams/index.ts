@@ -1,3 +1,5 @@
 export * from "./createExamUseCase"
 export * from "./getExamUseCase"
 export * from "./submitExamUseCase"
+export * from "./createCertificateUseCase"
+export * from "./getCertificatesUseCase"

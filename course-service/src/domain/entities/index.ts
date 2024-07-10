@@ -4,3 +4,4 @@ export * from "./enrollmentEntity";
 export * from "./reviewEntity"
 export * from "./ExamResultEntity"
 export * from "./CourseEntity"
+export * from "./certificateEntity"

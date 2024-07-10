@@ -41,7 +41,7 @@ import {
   getReviewsController,
 } from "../../presentation/controllers/reviews";
 
-import {createExamController, getExamController,submitExamController} from "../../presentation/controllers/exam";
+import {certificateController, createExamController, getExamController,submitExamController,getCertificatesController} from "../../presentation/controllers/exam";
 
 export const controllers = (dependencies: IDependencies) => {
   return {
@@ -72,6 +72,8 @@ export const controllers = (dependencies: IDependencies) => {
     getEexam:getExamController(dependencies),
     submitExam:submitExamController(dependencies),
     progress:enrollmentProgressController(dependencies),
-    getEnrollmentByUserId:getEnrollmentByUserIdController(dependencies)
+    getEnrollmentByUserId:getEnrollmentByUserIdController(dependencies),
+    uploadCertificate:certificateController(dependencies),
+    getCertificates:getCertificatesController(dependencies)
   };
 };

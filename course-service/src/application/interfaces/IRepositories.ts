@@ -4,6 +4,7 @@ import {
   IReview,
   CategoryEntity,
   CourseEntity,
+  ICertificate,
 } from "../../domain/entities";
 
 export interface IRepositories {
@@ -83,4 +84,6 @@ export interface IRepositories {
   ) => Promise<IExamResult | boolean>;
   enrollmentProgress:(progressData:any)=>Promise<EnrollmentEntity | null>
   getEnrollmentByUserId:(userId:string)=>Promise<any |null>
+  createCertificate:(userId:string, courseName:string, url:string)=>Promise <ICertificate|null>
+  getCertificates:(userId:string)=>Promise<any | null>
 }

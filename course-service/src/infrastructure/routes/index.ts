@@ -34,7 +34,9 @@ export const routes = (dependencies: IDependencies) => {
     getEexam,
     submitExam,
     progress,
-    getEnrollmentByUserId
+    getEnrollmentByUserId,
+    uploadCertificate,
+    getCertificates
   } = controllers(dependencies);
 
   // category
@@ -66,7 +68,7 @@ export const routes = (dependencies: IDependencies) => {
   //exam
   router.route("/exam/submit").post(submitExam);
   router.route("/exam/:courseId").post(createExam).get(getEexam);
-
+  router.route("/certificate/:userId").post(uploadCertificate).get(getCertificates)
 
   //enrollment
   router.route("/enrollment").get(getEnrollment).put(progress);

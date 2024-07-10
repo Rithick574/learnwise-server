@@ -7,7 +7,7 @@ export const findChatByUserId = async (userId: string): Promise<ChatEntity[] | f
     const chats = await Chat.find({
       participants: { $in: [new Types.ObjectId(userId)] }, 
       type: "individual",
-    }).populate("participants");
+    }).populate("participants").sort({ createdAt: -1 });
 
     if (!chats || chats.length === 0) {
       return false;
