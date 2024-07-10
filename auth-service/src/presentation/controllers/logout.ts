@@ -2,23 +2,25 @@ import { IDependencies } from "../../application/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
 
 export const logoutController = (dependencies: IDependencies) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.cookie("access_token", "", {
+        maxAge: 1,
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      });
 
-    return async (req: Request, res: Response, next: NextFunction) => {
+      res.cookie("refresh_token", "", {
+        maxAge: 1,
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      });
 
-        try {
-
-            res.cookie("access_token", "", {
-                maxAge: 1
-            });
-
-            res.cookie("refresh_token", "", {
-                maxAge: 1
-            });
-
-            res.status(204).json({});
-
-        } catch (error) {
-            next(error);
-        }
+      res.status(204).json({});
+    } catch (error) {
+      next(error);
     }
-}
+  };
+};
