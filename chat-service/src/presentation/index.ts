@@ -33,7 +33,7 @@ const server = http.createServer(app);
 //cors
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://learnwise-client.vercel.app",
     credentials: true,
   })
 );

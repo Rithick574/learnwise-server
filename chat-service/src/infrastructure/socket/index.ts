@@ -4,6 +4,7 @@ import { Server as IOServer } from "socket.io";
 import { messageSeen, setLastSeen,saveNotification } from "../database/mongoDB/repositories";
 
 const connectSocketIo = (server: Server) => {
+  console.log("🚀 ~ file: index.ts:7 ~ connectSocketIo ~ server:", server)
   const io = new IOServer(server, {
     cors: {
       origin: ["https://learnwise-client.vercel.app"],
