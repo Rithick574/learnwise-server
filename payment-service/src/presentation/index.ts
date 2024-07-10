@@ -13,7 +13,7 @@ const PORT: number = Number(process.env.PORT) || 4005;
 
 
 app.use((req, res, next) => {
-  if (req.originalUrl === '/webhook') {
+  if (req.originalUrl === '/api/payment/webhook') {
     next();
   } else {
     express.json()(req, res, next);
