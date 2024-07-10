@@ -20,6 +20,7 @@ const connectSocketIo = (server: Server) => {
 
   io.on("connection", (socket: Socket) => {
     const userId: string = socket.handshake.query.userId as string;
+    console.log("🚀 ~ file: index.ts:24 ~ io.on ~ userId:", userId)
     if (userId) {
       userSocketMap[userId] = socket.id;
       setLastSeen(userId, new Date(Date.now()));

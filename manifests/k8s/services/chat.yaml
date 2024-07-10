@@ -4,8 +4,8 @@ metadata:
   name:  learnwise-chat-service
 spec:
   selector:
-    app: chat-service
-  ports:
+    app: chat-service 
+  ports:  
   - name:  chat-service
     protocol: TCP
     port:  4006
