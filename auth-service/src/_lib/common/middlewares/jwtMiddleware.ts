@@ -36,6 +36,7 @@ export const jwtMiddleware = async (req: Request, res: Response, next: NextFunct
                 const newAccessToken = generateAccessToken(user);
                 res.cookie("access_token", newAccessToken, {
                     httpOnly: true,
+                    secure: true,
                     sameSite:"none",
                 });
             }
