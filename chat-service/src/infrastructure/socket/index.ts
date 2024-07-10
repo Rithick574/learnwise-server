@@ -6,7 +6,7 @@ import { messageSeen, setLastSeen,saveNotification } from "../database/mongoDB/r
 const connectSocketIo = (server: Server) => {
   const io = new IOServer(server, {
     cors: {
-      origin: ["http://localhost:5173"],
+      origin: ["https://learnwise-client.vercel.app"],
       methods: ["GET", "POST"],
       credentials: true,
     },
