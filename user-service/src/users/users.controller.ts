@@ -6,7 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { InstructorQueryDto } from './dto/instructor-query.dto';
 
 // @Controller()
-@Controller('api/user')
+@Controller()
 export class UsersController {
   constructor(
     private readonly userService: UsersService,

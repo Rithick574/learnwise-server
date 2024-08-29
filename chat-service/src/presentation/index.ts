@@ -40,8 +40,8 @@ app.use(
 
 connectSocketIo(server)
 
-app.use('/api/chat',router(dependencies))
-// app.use('/',router(dependencies))
+// app.use('/api/chat',router(dependencies))
+app.use('/',router(dependencies))
 
 //to catch unknown routes
 app.use("*", (req: Request, res: Response) => {

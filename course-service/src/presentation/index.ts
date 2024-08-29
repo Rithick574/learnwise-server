@@ -21,8 +21,8 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 
-app.use("/api/course",routes(dependencies));
-// app.use("/",routes(dependencies));
+// app.use("/api/course",routes(dependencies));
+app.use("/",routes(dependencies));
 
 
 app.use("*",(req: Request, res: Response) => {
