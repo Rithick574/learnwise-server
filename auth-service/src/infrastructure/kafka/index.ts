@@ -6,8 +6,8 @@ const kafka = new Kafka({
   ssl: true,
   sasl: {
     mechanism: 'plain',
-    username: 'AH3AIXDBMRITWY2S',
-    password:'PTTwXBptxZjyOa3DLtmSIjgC3mg8AZG8o1MB0pShQvbNX7bTC07O8HcgLAi+sqUj',
+    username: 'IGI4TMEEZDD5XDZG',
+    password:'KYygx3UkksOGC9+Iur1t5EPU3MlyQfY2qBgJ1zHfxW3leYtYefDoikTYcR8EjsPk',
   },
   connectionTimeout: 30000, 
 	authenticationTimeout: 30000, 
